@@ -93,7 +93,7 @@ const columns = [
   },
   { 
     field: 'reportingManagerId',
-   headerName: 'Manager Id',
+   headerName: 'Manager Id- Name',
    width: 125,
     flex:2,
    headerClassName:'table-header'
@@ -107,17 +107,7 @@ const columns = [
    headerClassName:'table-header'
 
   },
-  { 
-    field: 'modifiedDate',
-   headerName: 'Modified Date', 
-   width: 295,
-    flex:2,
-   headerClassName:'table-header',
-   valueFormatter: params => 
-   moment(params?.value).format("DD/MM/YYYY"),
-
-   
-  },
+  
   { 
     field: 'reportingManagerName',
    headerName: 'Manager Name', 
@@ -157,6 +147,17 @@ const columns = [
  }
    }
 
+  },
+  { 
+    field: 'modifiedDate',
+   headerName: 'Modified Date', 
+   width: 295,
+    flex:2,
+   headerClassName:'table-header',
+   valueFormatter: params => 
+   moment(params?.value).format("DD/MM/YYYY"),
+
+   
   },
   {
     field: 'edit',
@@ -206,7 +207,7 @@ const columns = [
   React.useEffect(()=>{
 
     getReportingManagerTable().then((res)=>{
-     
+     console.log(res)
       if(res.status===200 && res.statusMessage==="success"){
         setIsLoading(false)
       setReportingManagerTable(res.result)

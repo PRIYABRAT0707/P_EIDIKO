@@ -133,6 +133,8 @@ const SideNavBar = () => {
 
 
 {/* //biometric details end here */}
+{/*---------------------Profile------------------- */}
+
 
             <ListItemButton onClick={handleProfileClick}>
                 <ListItemIcon>
@@ -161,6 +163,7 @@ const SideNavBar = () => {
 
 
 
+{/*---------------------TaskDetails------------------- */}
 
             <ListItemButton onClick={handleTaskDetails}>
                 <ListItemIcon>
@@ -191,16 +194,17 @@ const SideNavBar = () => {
                         </TableChartIcon>
                         <ListItemText sx={{ pl:1 }} primary="Verification Pending"  primaryTypographyProps={{fontSize: '16px'}}/>
                     </ListItemButton>
-                    <ListItemButton sx={{ pl: 4 }} onClick={()=>{navigate("/user/sp")}}>
+                    {/* <ListItemButton sx={{ pl: 4 }} onClick={()=>{navigate("/user/sp")}}>
                         <TableChartIcon sx={{ pl:1 }}>
                             <SpeakerNotes color='white' />
                         </TableChartIcon>
                         <ListItemText primaryTypographyProps={{fontSize: '16px'}} sx={{ pl:1 }} primary="Status Pending" />
-                    </ListItemButton>
+                    </ListItemButton> */}
 
                 </List>
             </Collapse>
 
+{/*---------------------Employees------------------- */}
 
 
             <ListItemButton onClick={handleEmployeeClick}>
@@ -220,6 +224,7 @@ const SideNavBar = () => {
                     </ListItemButton>
                 </List>
             </Collapse>
+{/*------------------------- Work Information------------------- */}
             <ListItemButton onClick={handleworkInfoOpenClick}>
                 <ListItemIcon>
                     <FaBookOpen color='white' />

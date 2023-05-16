@@ -1,11 +1,11 @@
-import { Grid } from "@mui/material";
+import { Autocomplete, Grid } from "@mui/material";
 import {TextField} from "@mui/material";
 import { LocalizationProvider,TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import dayjs from "dayjs";
 import {Box} from "@mui/material";
 import {FormControl,InputLabel,Select,MenuItem} from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {Typography} from "@mui/material";
 import WorkIcon from '@mui/icons-material/Work';
 import {Container,Paper,Button} from "@mui/material";
@@ -17,6 +17,7 @@ import {Divider} from "@mui/material";
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from "react-router";
 import Loading from "../../Components/LoadingComponent/Loading";
+import AutoEmpSearch from "../../Services/AutoEmpSearch/AutoEmpSearch";
 
 
 
@@ -95,6 +96,17 @@ const workinFromHandle=(e)=>{
 
 //backbutton
 const backbutton=useNavigate()
+ //AutoComplete
+ const[managerId,setManagerId]=useState("")
+ const [data, setData]=useState([]);
+ const[records,setRecords]=useState();
+ console.log(managerId)
+ 
+ useEffect(()=>{
+   AutoEmpSearch(records).then((res)=>{
+     setData(res.data.result)
+   })
+     },[records])
     return(
         isLoading ? <Loading/> :
         
@@ -166,7 +178,28 @@ const backbutton=useNavigate()
                         justifyContent:'center',
                         alignItems:'center'
                     }}>
-                            <TextField required value={empId} onChange={(e)=>{setEmpId(e.target.value)}}  className='outlined-basic-text-box' id="outlined-basic" label="Employee Id" variant="outlined"  sx={{width:400}}/>
+                        <Autocomplete 
+                                    sx={{display:"flex"}}
+                                    options={data.map((employee)=>employee.empId+"  ("+employee.userName+")")}
+                                renderInput={(params)=> 
+                                <TextField
+                                InputProps={{ inputProps: { maxLength:50,minLength:5} }}
+                                sx={{width:400}}
+                                required
+                                 value={managerId}
+                                 {...params} 
+                                 label="Employee Id"
+                                className='outlined-basic-text-box'
+                                id="outlined-basic" 
+                                // OptionEqualToValue={employee.empId}
+                                type='text'
+                                onChange={(e)=>{setEmpId(e.target.value)}} 
+                            onKeyUp={(e)=>{setRecords(e.target.value)}}
+                            />} />
+                            {/* <TextField required value={empId} 
+                            onChange={(e)=>{setEmpId(e.target.value)}} 
+                             className='outlined-basic-text-box' id="outlined-basic"
+                              label="Employee Id" variant="outlined"  sx={{width:400}}/> */}
                         </Grid>
 
                         <Grid  item xs={12} sx={{display:'flex',

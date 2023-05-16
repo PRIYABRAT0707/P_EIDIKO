@@ -23,7 +23,7 @@ export default function ShiftTimings(){
 const navigate=useNavigate()
     // const hour1=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
     const minute1=[0,15,30,45,60]
-    const textfield1 = { width: 400 }
+    const textfield1 = { width: 500 }
 
     const button1={backgroundColor:"#2196F3",color:"white",borderRadius:"20px",marginBottom:"20px",width:"22%"}
 
@@ -255,7 +255,8 @@ return(
 
                                 <DatePicker onChange={getData} id="start-date1" label="Start Date" defaultValue={dayjs('2023-01-01')} className='outlined-basic-text-box'  sx={{width:400}} />
                             </LocalizationProvider> */}
-                            <TextField className='outlined-basic-text-box' id="outlined-basic" label="Start Date" variant="outlined" style={textfield1} type='date'
+                            <TextField className='outlined-basic-text-box' id="outlined-basic" 
+                            label="Start Date" variant="outlined" style={textfield1} type='date'
                                         value={startDate}
                                         onChange={(event) =>setstartDate(event.target.value)}
                                     />
@@ -285,14 +286,15 @@ return(
    }}>
 
 
-<Box sx={{width:400}}>
+<Box sx={{width:500}}>
 <Typography variant='h6'>Shift Start</Typography>
 
  
-        <TextField required name="startHour"  value={startTime.startHour} onChange={getime11} label="Hour" type="number"  InputProps={{ inputProps: { max:23,min:0} }} sx={{width:190}}></TextField>
+        <TextField required name="startHour"  value={startTime.startHour} onChange={getime11} label="Hour" type="number"  
+        InputProps={{ inputProps: { max:23,min:0} }} sx={{width:240}}></TextField>
    
 
- <FormControl sx={ {width: 190,marginLeft:2.5 }}>
+ <FormControl sx={ {width: 240,marginLeft:2.5 }}>
 <InputLabel id="demo-multiple-name-label">Minute</InputLabel>
         <Select value={startTime.startMinute} onChange={getime11}
           labelId="demo-multiple-name-label"
@@ -320,15 +322,16 @@ return(
                         alignItems:'center'
                         
 }}>
-    <Box sx={{width:400}}>
+    <Box sx={{width:500}}>
 
 <Typography variant='h6'>Shift End</Typography>
 
  
-        <TextField required name="endHour" value={endTime.endHour} onChange={getTime12} label="Hour"  type="number"  InputProps={{ inputProps: { max:23,min:0} }} sx={{width:190}}></TextField>
+        <TextField required name="endHour" value={endTime.endHour} onChange={getTime12} label="Hour"
+          type="number"  InputProps={{ inputProps: { max:23,min:0} }} sx={{width:240}}></TextField>
    
 
- <FormControl sx={ {width: 190,marginLeft:2.5 }}>
+ <FormControl sx={ {width: 240,marginLeft:2.5 }}>
 <InputLabel id="demo-multiple-name-label">Minute</InputLabel>
         <Select
         required
