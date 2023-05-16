@@ -236,7 +236,8 @@ const handleSerchData=(e)=>{
         
         }} style={textfield1}>
 
-<TextField InputLabelProps={{ shrink: true }}  style={{width:"300px"}} type='date' value={employee.toDate} onChange={(e)=>{setEmployee({ ...employee,toDate:e.target.value})}} label="To Date"></TextField>
+<TextField InputLabelProps={{ shrink: true }}  style={{width:"300px"}} type='date' value={employee.toDate} 
+onChange={(e)=>{setEmployee({ ...employee,toDate:e.target.value})}} label="To Date"></TextField>
             {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
                  <DatePicker 
                     onChange={(newValue) => setEmployee({
@@ -265,7 +266,8 @@ const handleSerchData=(e)=>{
                                 <TextField
                                 
                                  {...params} 
-                                label='Employee Id(Optional)'
+                                 required
+                                label='Employee Id'
                                 className='outlined-basic-text-box'
                                 id="outlined-basic" 
                                 // OptionEqualToValue={employee.empId}

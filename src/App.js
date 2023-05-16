@@ -26,7 +26,7 @@ import EmpShiftTime from "./Components/Tables/EmpShiftTime";
 import EmpWorkLocation from "./Components/Tables/EmpWorkLocation";
 import { TaskStatus} from "./Pages/TaskDetails/TaskStatus";
 import {VerificationPending} from "./Pages/TaskDetails/VerificationPending"
-import {StatusPending} from "./Pages/TaskDetails/StatusPending"
+// import {StatusPending} from "./Pages/TaskDetails/StatusPending"
 import {Errorr} from "./Components/error/Errorr";
 import BiometricTable from "./Components/BiometricTables/BiometricTable";
 import { BiometricSearch } from "./Components/BiometricTables/BiometricSearch";
@@ -67,7 +67,7 @@ function App() {
           <Route index path="daily-report" element={<DailyReport />} />
           <Route index path="ts" element={<TaskStatus/>}/>
           <Route index path="vp" element={<VerificationPending/>}/>
-          <Route index path="sp" element={<StatusPending/>}/>
+          {/* <Route index path="sp" element={<StatusPending/>}/> */}
           <Route index path="biometric" element={<DataUpload />} />
           <Route index path="biometric-data" element={<BiometricTable/>}/>
           <Route index path="biometric-search" element={<BiometricSearch/>}/>

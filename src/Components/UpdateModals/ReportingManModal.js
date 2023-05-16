@@ -1,5 +1,5 @@
-import { Box, Button, Card, CardContent, Container, Grid, Paper, TextField, Typography } from '@mui/material'
-import React from 'react'
+import { Autocomplete, Box, Button, Card, CardContent, Container, Grid, Paper, TextField, Typography } from '@mui/material'
+import React, { useEffect } from 'react'
 import Person3Icon from '@mui/icons-material/Person3';
 import { useState } from 'react';
 import userServiceModule from '../../Services/user-service/UserService';
@@ -10,6 +10,7 @@ import Loading from '../../Components/LoadingComponent/Loading';
 import { helpFunction } from '../../Components/HelperComponent/helpFunction';
 import { EmpUpdateService } from '../../Services/Employee-Update-Service/EmpUpdSer';
 import { toast } from "react-toastify";
+import AutoEmpSearch from '../../Services/AutoEmpSearch/AutoEmpSearch';
 
 
 export const ReportingManModal = (props) => {
@@ -59,7 +60,16 @@ const reportingManagerModalHandle=(e)=>{
                 func1()
         
         })}
-
+ //AutoComplete
+ const [data, setData]=useState([]);
+ const[records,setRecords]=useState();
+ console.log(managerId)
+ 
+ useEffect(()=>{
+   AutoEmpSearch(records).then((res)=>{
+     setData(res.data.result)
+   })
+     },[records])
 
 
     return (
@@ -99,7 +109,27 @@ const reportingManagerModalHandle=(e)=>{
                     justifyContent:'center',
                     alignItems:'center'
                 }}>
-                        <TextField required value={managerId} onChange={(e)=>{setManagerId(e.target.value)}} className='outlined-basic-text-box' id="outlined-basic" label="Manager Id" variant="outlined" style={textfield1} type='number' />
+                     <Autocomplete 
+                                    sx={{display:"flex"}}
+                                    options={data.map((employee)=>employee.empId+"  ("+employee.userName+")")}
+                                renderInput={(params)=> 
+                                <TextField
+                                InputProps={{ inputProps: { maxLength:50,minLength:5} }}
+                                style={textfield1}
+                                required
+                                 value={managerId}
+                                 {...params} 
+                                 label="Manager Id"
+                                className='outlined-basic-text-box'
+                                id="outlined-basic" 
+                                // OptionEqualToValue={employee.empId}
+                                type='text'
+                                onChange={(e)=>{setManagerId(e.target.value)}}
+                            onKeyUp={(e)=>{setRecords(e.target.value)}}
+                            />} />
+                        {/* <TextField required value={managerId} onChange={(e)=>{setManagerId(e.target.value)}}
+                         className='outlined-basic-text-box' id="outlined-basic" 
+                         label="Manager Id" variant="outlined" style={textfield1} type='number' /> */}
                     </Grid>
                 
                     <Grid item xs={12} sx={{display:'flex',

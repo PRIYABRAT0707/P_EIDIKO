@@ -34,9 +34,9 @@ export const Errorr = () => {
             </Grid>
             <Grid xs={6}>
               <img
-                src="https://previews.123rf.com/images/krisdog/krisdog0802/krisdog080200012/2558852-an-illustration-of-a-monkey-in-a-hard-hat-trying-to-fix-a-computer-with-a-hammer-perhaps-a.jpg"
+                src="https://cdn.svgator.com/images/2022/01/funny-404-error-page-design.gif"
                 alt=""
-                width={500} height={250}
+                width={600} height={350}
               />
             </Grid>
           </Grid>

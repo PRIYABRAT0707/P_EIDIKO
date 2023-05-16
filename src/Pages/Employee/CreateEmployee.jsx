@@ -1,8 +1,8 @@
 import { PersonAddOutlined } from '@mui/icons-material'
-import { Box, Button, Container, Grid, Snackbar, TextField, Typography } from '@mui/material'
+import { Autocomplete, Box, Button, Container, Grid, Snackbar, TextField, Typography } from '@mui/material'
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { DatePicker } from '@mui/x-date-pickers/DatePicker';
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import dayjs from 'dayjs';
 import { Paper } from '@mui/material';
@@ -13,6 +13,7 @@ import {Divider} from '@mui/material';
 import {IconButton} from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import Loading from '../../Components/LoadingComponent/Loading';
+import AutoEmpSearch from '../../Services/AutoEmpSearch/AutoEmpSearch';
 
 
 const CreateEmployee = () => {
@@ -104,6 +105,19 @@ const CreateEmployee = () => {
 
 //backbutton
 const backbutton=useNavigate()
+ //AutoComplete
+const[managerId,setManagerId]=useState("")
+const [data, setData]=useState([]);
+const[records,setRecords]=useState();
+console.log(managerId)
+
+useEffect(()=>{
+  AutoEmpSearch(records).then((res)=>{
+    setData(res.data.result)
+  })
+    },[records])
+
+
     return (
 isLoading ? <Loading/> : 
 
@@ -153,24 +167,68 @@ isLoading ? <Loading/> :
                                     justifyContent: 'center',
                                     alignItems: 'center'
                                 }}>
-                                    <TextField required type='number' className='outlined-basic-text-box' id="outlined-basic" label="Employee Id" variant="outlined" style={textfield1}
+                                    <Autocomplete 
+                                    sx={{display:"flex"}}
+                                    options={data.map((employee)=>employee.empId+"  ("+employee.userName+")")}
+                                renderInput={(params)=> 
+                                <TextField
+                                InputProps={{ inputProps: { maxLength:50,minLength:5} }}
+                                style={textfield1}
+                                required
+                                 value={managerId}
+                                 {...params} 
+                                 label="Employee Id"
+                                className='outlined-basic-text-box'
+                                id="outlined-basic" 
+                                // OptionEqualToValue={employee.empId}
+                                type='text'
+                                onChange={(event) => setEmployee({
+                                    ...employee, empId: event.target.value
+                                })}
+                            onKeyUp={(e)=>{setRecords(e.target.value)}}
+                            />} />
+                                    {/* <TextField required type='number'
+                                     className='outlined-basic-text-box' id="outlined-basic" 
+                                     label="Employee Id" variant="outlined" style={textfield1}
                                         value={employee.empId}
                                         onChange={(event) => setEmployee({
                                             ...employee, empId: event.target.value
                                         })}
-                                    />
+                                    /> */}
                                 </Grid>
                                 <Grid item xs={12} sx={{
                                     display: 'flex',
                                     justifyContent: 'center',
                                     alignItems: 'center'
                                 }}>
-                                    <TextField required  InputProps={{ inputProps: { maxLength:50,minLength:5} }} className='outlined-basic-text-box' id="outlined-basic" label="Employee Name" variant="outlined" style={textfield1}
+                                    <Autocomplete 
+                                    sx={{display:"flex"}}
+                                    options={data.map((employee)=>employee.empId+"  ("+employee.userName+")")}
+                                renderInput={(params)=> 
+                                <TextField
+                                InputProps={{ inputProps: { maxLength:50,minLength:5} }}
+                                style={textfield1}
+                                required
+                                 value={managerId}
+                                 {...params} 
+                                 label="Employee Name"
+                                className='outlined-basic-text-box'
+                                id="outlined-basic" 
+                                // OptionEqualToValue={employee.empId}
+                                type='text'
+                                onChange={(event) => setEmployee({
+                                    ...employee, empName: event.target.value
+                                })}
+                            onKeyUp={(e)=>{setRecords(e.target.value)}}
+                            />} />
+                                    {/* <TextField required  InputProps={{ inputProps: { maxLength:50,minLength:5} }} 
+                                    className='outlined-basic-text-box' id="outlined-basic" 
+                                    label="Employee Name" variant="outlined" style={textfield1}
                                         value={employee.empName}
                                         onChange={(event) => setEmployee({
                                             ...employee, empName: event.target.value
                                         })}
-                                    />
+                                    /> */}
                                 </Grid>
                                 <Grid item xs={12} sx={{
                                     display: 'flex',

@@ -99,15 +99,15 @@ const handleModal2Close = () => {
 
 const columns = [
 
-  { 
-    field: "shiftTimingId",
-   headerName: 'Shift-Id', 
-   width: 175,
-   flex:2,
-   headerClassName:'table-header',
+  // { 
+  //   field: "shiftTimingId",
+  //  headerName: 'Shift-Id', 
+  //  width: 175,
+  //  flex:2,
+  //  headerClassName:'table-header',
 
  
-  },
+  // },
   { 
     field: 'startDate',
    headerName: 'Start Date',

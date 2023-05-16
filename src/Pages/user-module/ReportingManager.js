@@ -1,13 +1,13 @@
 
 
 import Person3Icon from '@mui/icons-material/Person3';
-import { Box,TextField,Typography,Paper,Grid,Container} from '@mui/material';
+import { Box,TextField,Typography,Paper,Grid,Container, Autocomplete} from '@mui/material';
 import { LocalizationProvider } from '@mui/x-date-pickers';
 import { DatePicker } from '@mui/x-date-pickers';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
 import Button from '@mui/material/Button';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import userServiceModule from '../../Services/user-service/UserService';
 import Swal from 'sweetalert2';
 import { helpFunction } from '../../Components/HelperComponent/helpFunction';
@@ -15,6 +15,7 @@ import {Divider} from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from 'react-router';
 import Loading from '../../Components/LoadingComponent/Loading';
+import AutoEmpSearch from '../../Services/AutoEmpSearch/AutoEmpSearch';
 
 
 export default function ReportingManager(){
@@ -87,6 +88,17 @@ const reportingManagerHandle=(e)=>{
  //backbutton
  const backbutton=useNavigate()
 
+ //AutoComplete
+const [data, setData]=useState([]);
+const[records,setRecords]=useState();
+console.log(managerId)
+
+useEffect(()=>{
+  AutoEmpSearch(records).then((res)=>{
+    setData(res.data.result)
+  })
+    },[records])
+
     
     return(
         isloading ? <Loading/> :
@@ -123,13 +135,51 @@ const reportingManagerHandle=(e)=>{
                     justifyContent:'center',
                     alignItems:'center'
                 }}>
-                        <TextField required value={empId} name="empId" onChange={(e)=>{setEmpId(e.target.value)}} className='outlined-basic-text-box' id="outlined-basic" label="Employee Id" variant="outlined" style={textfield1}  type='number'/>
+                     <Autocomplete 
+            sx={{display:"flex"}}
+            options={data.map((employee)=>employee.empId+"  ("+employee.userName+")")}
+                                renderInput={(params)=> 
+                                <TextField
+                                style={textfield1}
+                                required
+                                 value={managerId}
+                                 {...params} 
+                                label='Task Assigned By'
+                                className='outlined-basic-text-box'
+                                id="outlined-basic" 
+                                // OptionEqualToValue={employee.empId}
+                                type='text'
+                               onChange={(e)=>{setManagerId(e.target.value)}}
+                            onKeyUp={(e)=>{setRecords(e.target.value)}}
+                            />} />
+                        {/* <TextField required value={empId} 
+                        name="empId" onChange={(e)=>{setEmpId(e.target.value)}} 
+                        className='outlined-basic-text-box' id="outlined-basic" 
+                        label="Employee Id" variant="outlined" 
+                        style={textfield1}  type='number'/> */}
                     </Grid>
                     <Grid item xs={12} sx={{display:'flex',
                     justifyContent:'center',
                     alignItems:'center'
                 }}>
-                        <TextField required value={managerId} onChange={(e)=>{setManagerId(e.target.value)}} className='outlined-basic-text-box' id="outlined-basic" label="Manager Id" variant="outlined" style={textfield1} type='number' />
+                     <Autocomplete 
+            sx={{display:"flex"}}
+            options={data.map((employee)=>employee.empId+"  ("+employee.userName+")")}
+                                renderInput={(params)=> 
+                                <TextField
+                                style={textfield1}
+                                required
+                                 value={managerId}
+                                 {...params} 
+                                label='ManagerId'
+                                className='outlined-basic-text-box'
+                                id="outlined-basic" 
+                                // OptionEqualToValue={employee.empId}
+                                type='text'
+                               onChange={(e)=>{setManagerId(e.target.value)}}
+                            onKeyUp={(e)=>{setRecords(e.target.value)}}
+                            />} />
+                        {/* <TextField required value={managerId} onChange={(e)=>{setManagerId(e.target.value)}} className='outlined-basic-text-box' id="outlined-basic" label="Manager Id" variant="outlined" style={textfield1} type='number' /> */}
                     </Grid>
                    
                     <Grid item xs={12} sx={{display:'flex',

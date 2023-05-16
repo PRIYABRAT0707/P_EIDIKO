@@ -1,5 +1,5 @@
 import React,{useEffect, useMemo, useRef, useState} from 'react';
-import {Box, Container, Divider, Grid, Paper, TextField, Typography} from '@mui/material';
+import {Autocomplete, Box, Container, Divider, Grid, Paper, TextField, Typography} from '@mui/material';
 import {CardContent ,Card} from '@mui/material';
 import { Button } from '@mui/material';
 import {LocalizationProvider} from '@mui/x-date-pickers';
@@ -20,8 +20,10 @@ import ReactQuill, { Quill } from 'react-quill';
 import  "react-quill/dist/quill.snow.css";
 import { ClipboardEvent } from 'react';
 import { toast } from 'react-toastify';
+import AutoEmpSearch from '../../Services/AutoEmpSearch/AutoEmpSearch';
 
-export default function DailyReporttt(){
+export default function DailyReporttt(props){
+
   const[visible,setVisible]=useState(false);
  
   const[TaskDetails,setTaskDetails]=useState("")
@@ -33,7 +35,9 @@ export default function DailyReporttt(){
   const[taskAssignedBy,setTaskAssignedBy]=useState("")
   const[taskVerifiedBy,setTaskVerifiedBy]=useState("null")
   const [isLoading,setIsLoading]=useState(false)
-  
+
+ 
+
 
   function handlePaste(event) {
     event.preventDefault();
@@ -139,6 +143,19 @@ const backbutton=useNavigate()
 //     return false;
 //   };
 
+//AutoComplete
+const [data, setData]=useState([]);
+const[records,setRecords]=useState();
+const[managerId,setManagerId]=useState("")
+console.log(managerId)
+
+useEffect(()=>{
+  AutoEmpSearch(records).then((res)=>{
+    setData(res.data.result)
+  })
+    },[records])
+
+
     return(
       isLoading?<Loading/>:
       <Box style={{backgroundColor:"#FFFFFF",height:"92vh"}}>
@@ -160,7 +177,7 @@ const backbutton=useNavigate()
                 // marginTop:"10px",marginBottom:"20px"
                 marginRight:"30px"
             }}>
-             <Typography color="secondary" style={{marginLeft:"35px",fontSize:"26px"}}>Daily Status Report</Typography>
+             <Typography color="secondary" style={{marginLeft:"35px",fontSize:"26px"}}>Daily Status</Typography>
 
              <Grid style={{justifyContent:"center"}}>
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"12px"}} 
@@ -199,8 +216,30 @@ const backbutton=useNavigate()
                   onChange={setDesc} placeholder="Task Description" /> 
                   </Grid>
    
-               <Grid item xs={12} sx={{justifyContent:"center",display:"flex"}}>
-                 <TextField  type='number' value={taskAssignedBy} onChange={(e)=>{setTaskAssignedBy(e.target.value)}} label="Task Assigned By" required  placeholder="Task Assigned By" variant='outlined' fullWidth style={{width:"935px",marginTop:"75px"}}></TextField>
+               
+                 <Grid item xs={12} sx={{justifyContent:"center",display:"flex"}}>
+                 <Autocomplete 
+                 fullWidth style={{width:"935px",marginTop:"75px"}}
+            sx={{display:"flex"}}
+            options={data.map((employee)=>employee.empId+"  ("+employee.userName+")")}
+                                renderInput={(params)=> 
+                                <TextField
+                                // style={textfield1}
+                                required
+                                 value={managerId}
+                                 {...params} 
+                                label='Task Assigned By'
+                                className='outlined-basic-text-box'
+                                id="outlined-basic" 
+                                // OptionEqualToValue={employee.empId}
+                               
+                               onChange={(e)=>{setManagerId(e.target.value)}}
+                            onKeyUp={(e)=>{setRecords(e.target.value)}}
+                            />}
+            />
+                 {/* <TextField  type='number' value={taskAssignedBy} onChange={(e)=>{setTaskAssignedBy(e.target.value)}} label="Task Assigned By" required  placeholder="Task Assigned By" variant='outlined' 
+                 fullWidth style={{width:"935px",marginTop:"75px"}}></TextField> */}
+                 
                  </Grid>
                  
                  <Grid item xs={12} sx={{justifyContent:"center",display:"flex"}} style={{width:"550px",marginTop:"15px"}}>
@@ -242,7 +281,7 @@ const backbutton=useNavigate()
                  
                }
                <Grid item xs={12} sx={{justifyContent:"center",display:"flex",marginTop:"12px"}}>
-                 <Button style={GlobalButton.OperationButton} type="submit" variant="contained" color="primary" >Report</Button>
+                 <Button style={GlobalButton.OperationButton} type="submit" variant="contained" color="primary" >Update</Button>
                </Grid>
                
                
