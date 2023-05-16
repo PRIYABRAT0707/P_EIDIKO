@@ -16,14 +16,22 @@ import { toast } from "react-toastify";
 
 export const ShiftTimingModal = (props) => {
 
-    const [initialStartDate,setInitialStartDate]=useState("")
-      const[initialEndDate,setInitialEndDate]=useState("")
-     const [initialShiftStartTime,setInitialShiftStartTime]=useState({"startHour":"","startMinute":""})
-      const[initialShiftEndTime,setInitialShiftEndTime]=useState({"endHour":"","endMinute":""})
+
+
+const [initialStartDate,setInitialStartDate]=useState("")
+const[initialEndDate,setInitialEndDate]=useState("")
+const [initialShiftStartTime,setInitialShiftStartTime]=useState({"startHour":"","startMinute":""})
+const[initialShiftEndTime,setInitialShiftEndTime]=useState({"endHour":"","endMinute":""})
 const button1={backgroundColor:"#2196F3",color:"#FFFFFF",borderRadius:"20px",marginBottom:"20px",width:"22%"}
 const textfield1={width: 400}
 const minute1=[0 ,15,30,45,60]
 const[checkValue,setCheckValue]=useState([])
+const[isLoading,setIsLoading]=useState(false)
+const[message,setMessage]=useState("")
+const [empId,setEmpId]=useState(props.empId)
+const[shiftTimingId,setshiftTimingId]=useState(props.manager.shiftTimingId)
+
+let func1=props.onClose1
 
   const handlechange=(e)=>{
     const { value, checked } = e.target;
@@ -39,23 +47,20 @@ const[checkValue,setCheckValue]=useState([])
     }
   }
 
-const[isLoading,setIsLoading]=useState(false)
-const[message,setMessage]=useState("")
-const [empId,setEmpId]=useState(props.empId)
-let func1=props.onClose1
+
 
   const shiftTimingsModalHandle=(e)=>{
     e.preventDefault()
     setIsLoading(true)
     let endDate1=helpFunction.endDateManipulation(initialEndDate)
      let startTime3=initialShiftStartTime.startHour+":"+initialShiftStartTime.startMinute+":"+"00"
-      let endTime3=initialShiftEndTime.endHour+":"+initialShiftEndTime.endMinute+":"+"00"
+       let endTime3=initialShiftEndTime.endHour+":"+initialShiftEndTime.endMinute+":"+"00"
 
-
-      if(checkValue.length===2){
-    EmpUpdateService.updateShiftTimingsService(empId,checkValue,initialStartDate,endDate1,startTime3,endTime3).then((res)=>{
+     if(checkValue.length===2){
+    EmpUpdateService.updateShiftTimingsService(empId,checkValue,initialStartDate,endDate1,startTime3,endTime3,shiftTimingId).then((res)=>{
        
       if(res.status===200 && res.data.statusMessage==='success'){
+        console.log(res)
         setIsLoading(false)
       toast.success(res.data.message, {
         position: toast.POSITION.TOP_CENTER
@@ -72,6 +77,7 @@ let func1=props.onClose1
 
       }
     }).catch((error)=>{
+      console.log(error)
       setIsLoading(false)
       toast.error(error.response.data.message, {
         position: toast.POSITION.TOP_CENTER
@@ -82,21 +88,27 @@ let func1=props.onClose1
   }
     else if(checkValue.length===0){
       setIsLoading(false)
-      setMessage("please select  week off")
+      toast.error("please select  week off", {
+        position: toast.POSITION.TOP_CENTER
+      });
     }
     else if(checkValue.length===1){
       setIsLoading(false)
-      setMessage("You need to select atleast 2 week off")
+      toast.error("You need to select atleast 2 week off", {
+        position: toast.POSITION.TOP_CENTER
+      });
 
     }
     else{
       setIsLoading(false)
-      setMessage("you can select maximum 2 week off")
+       toast.error("you can select maximum 2 week off", {
+        position: toast.POSITION.TOP_CENTER
+      });
     }
   }
 
 
-
+//console.log(shiftTimingId,empId,initialEndDate,initialStartDate,initialShiftStartTime,initialShiftEndTime,checkValue)
 
     return (
       isLoading?<Loading/>:

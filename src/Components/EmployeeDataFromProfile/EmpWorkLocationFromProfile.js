@@ -114,7 +114,7 @@ export default function EmpWorkLocationFromProfile(props) {
 
     {
       field: 'edit',
-      headerName: 'Create',
+      headerName: 'Update',
       width: 119,
       flex:2,
       headerClassName: 'table-header',
@@ -151,31 +151,34 @@ export default function EmpWorkLocationFromProfile(props) {
    const navigate=useNavigate()
   const[isLoading,setIsLoading]=useState(true)
   const {state}=useLocation(props.state)
-  
   const[empId,setEmpId]=useState(state.empId)
 
-  React.useEffect(()=>{
+function fetchDataOfWork(empId){
+  EmployeeAccessLevelService.WorkingLocationFromProfile(empId).then((res)=>{
+      
+    if(res.status===200 && res.statusMessage==="success"){
+    
+    setIsLoading(false)
+    setworkLocationTable(res.result)
+    
+    
+    }
+    else{
+      setIsLoading(false)
+   
+    }
 
-    EmployeeAccessLevelService.WorkingLocationFromProfile(empId).then((res)=>{
-      
-      if(res.status===200 && res.statusMessage==="success"){
-      
-      setIsLoading(false)
-      setworkLocationTable(res.result)
-      
-      
-      }
-      else{
-        setIsLoading(false)
-     
-      }
+  }).catch((err)=>{
+    setIsLoading(false)
   
-    }).catch((err)=>{
-      setIsLoading(false)
-    
-    })
-    
-  },[])
+  })
+
+} 
+
+
+  React.useEffect(()=>{ 
+    fetchDataOfWork(empId)
+  },[reportm])
 
 
 

@@ -3,7 +3,6 @@ import React from 'react'
 import Person3Icon from '@mui/icons-material/Person3';
 import { useState } from 'react';
 import userServiceModule from '../../Services/user-service/UserService';
-import Swal from 'sweetalert2';
 import { GlobalButton } from '../stylecomponent/GlobalButton';
 import {Divider} from '@mui/material';
 import Loading from '../../Components/LoadingComponent/Loading';
@@ -17,23 +16,23 @@ export const ReportingManModal = (props) => {
     const textfield1={width: 400}
 
  const[managerData,setManagerData]=useState(props.manager)
-
  const[managerId,setManagerId]=useState(managerData.reportingManagerId)
- const [initialStartDate,setInitialStartDate]=useState()
+ const [initialStartDate,setInitialStartDate]=useState("")
  const[initialEndDate,setInitialEndDate]=useState("")
 const[empId,setEmpId]=useState(managerData.empId)
+const [reportingManagerId,setreportingManagerId]=useState(managerData.id)
 
 
 const [isLoading,setIsLoading]=useState(false)
 let func1=props.onClose1
+
 const reportingManagerModalHandle=(e)=>{
     e.preventDefault()
     setIsLoading(true)
     let endDate1=helpFunction.endDateManipulation(initialEndDate)
-    console.log(endDate1)
 
-    EmpUpdateService.updateReportingManager(empId,managerId,initialStartDate,endDate1).then((res)=>{
-        if(res.status===201 && res.statusMessage==='success'){
+    EmpUpdateService.updateReportingManager(empId,managerId,initialStartDate,endDate1,reportingManagerId).then((res)=>{
+        if(res.status===200 && res.statusMessage==='success'){
 
             setIsLoading(false)
             toast.success(res.message, {
@@ -86,6 +85,8 @@ const reportingManagerModalHandle=(e)=>{
             <GlobalButton.GlobalDivider/>
         <Container style={{padding:"20px"}}>
             <form onSubmit={reportingManagerModalHandle}>
+               
+
             <Paper elevation={0} style={{width:"auto"}} >
               <Box sx={{ flexFlow: 1 }}>
                 <Grid container spacing={1} gap={1.5}  justifyContent={"center"} alignItems={"center"} alignContent={"center"}>

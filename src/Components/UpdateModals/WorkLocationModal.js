@@ -14,12 +14,13 @@ import { helpFunction } from "../../Components/HelperComponent/helpFunction";
 import { toast } from "react-toastify";
 
 export const WorkLocationModal = (props) => {
+const [initialStartDate,setInitialStartDate]=useState("")
+const[initialEndDate,setInitialEndDate]=useState("")
+const[location,setLocation]=useState("")
+const[wloc,setWloc]=useState("")
+const[empId,setEmpId]=useState(props.empId)
+const[empWorkLocationId,setempWorkLocationId]=useState(props.working.empWorkLocationId)
 
-    const [initialStartDate,setInitialStartDate]=useState("")
-      const[initialEndDate,setInitialEndDate]=useState("")
-      const[location,setLocation]=useState("")
-      const[wloc,setWloc]=useState("")
-      const[empId,setEmpId]=useState(props.empId)
 const button1={backgroundColor:"#2196F3",color:"#FFFFFF",borderRadius:"20px",marginBottom:"20px",width:"22%"}
 const textfield1={width: 400}
 const[isLoading,setIsLoading]=useState(false)
@@ -29,10 +30,9 @@ const updateEmployeeWorkInfo=(e)=>{
 e.preventDefault()
 setIsLoading(true)
 let endDate1=helpFunction.endDateManipulation(initialEndDate)
-EmpUpdateService.updateWorkingLocation(empId,initialStartDate,endDate1,location,wloc).then((res)=>{
+EmpUpdateService.updateWorkingLocation(empWorkLocationId,empId,initialStartDate,endDate1,location,wloc).then((res)=>{
 
-    if(res.status===201 && res.statusMessage==='success' ){
-       // console.log("success")
+    if(res.status===200 && res.statusMessage==='success' ){
         setIsLoading(false)
         toast.success(res.message, {
             position: toast.POSITION.TOP_CENTER

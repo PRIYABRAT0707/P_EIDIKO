@@ -2,32 +2,35 @@ import { myAxios } from "../../Server/MyAxios";
 
 export const EmpUpdateService={
 
-    updateWorkingLocation:async function(empId,startDate,endDate,workingFrom,LOCATION){
+    updateWorkingLocation:async function(empWorkLocationId,empId,startDate,endDate,workingFrom,LOCATION){
 
-        return await myAxios.post("access/employee/add-work-location",{"empId":empId,"startDate":startDate,"endDate":endDate,"workingFrom":workingFrom,"location":LOCATION})
+        return await myAxios.put("access/employee/update-working-location",{"empWorkLocationId":empWorkLocationId,"empId":empId,"startDate":startDate,"endDate":endDate,"workingFrom":workingFrom,"location":LOCATION})
         .then((res)=>res.data)
  
      },
-     updateReportingManager: async function(empId,managerId,startDate,endDate){
+     updateReportingManager: async function(empId,managerId,startDate,endDate,reportingManagerId){
         // let data=null
-       return await myAxios.post("access/employee/add-reporting-manager",{"empId":empId,
+       return await myAxios.put("access/employee/update-reporting-manager",{"empId":empId,
         "managerId":managerId,
         "startDate":startDate,
-        "endDate":endDate}).then((res)=> res.data
+        "endDate":endDate,
+        "reportingManagerId":reportingManagerId
+    }).then((res)=> res.data
             //console.log(res)
             )
 
        
     },
-    updateShiftTimingsService:async function(empId,weekOff,startDate,endDate,shiftStartTime,shiftEndTime){
+    updateShiftTimingsService:async function(empId,weekOff,startDate,endDate,shiftStartTime,shiftEndTime,shiftTimingId){
         let data=null
-       await myAxios.post("/access/employee/add-shift-timing",{
+       await myAxios.put("/access/employee/update-shift-timing",{
             "empId":empId,    
             "weekOff":weekOff,
             "startDate":startDate,
             "endDate":endDate,
             "shiftStartTime":shiftStartTime,
-            "shiftEndTime":shiftEndTime
+            "shiftEndTime":shiftEndTime,
+            "shiftTimingId":shiftTimingId
 
         }).then((result)=>{
 

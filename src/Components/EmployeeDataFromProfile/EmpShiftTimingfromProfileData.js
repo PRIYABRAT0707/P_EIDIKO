@@ -31,16 +31,12 @@ export default function EmpShiftTimingfromProfileData(props) {
   const handleRmOpen=()=>{
     setReportm(true)
   }
-
-
   const[shiftTiming,setShiftTiming]=useState([])
   const ManagerRowHandler=(params)=>{
     setShiftTiming(params.row)
   }
 
   
-
-
   const columns = [
     { 
       field: "shiftTimingId",
@@ -107,8 +103,20 @@ export default function EmpShiftTimingfromProfileData(props) {
      headerName: 'Week-Off', 
      width: 250,
      flex:2,
-     headerClassName:'table-header'
+     headerClassName:'table-header',
+
+     renderCell: (params) => {
+     let data=params.formattedValue
+     let data1=data.slice(0,1)
+     let data2=data.slice(2,3)
      
+     if(data1==1 && data2==2){
+      return "Monday,Tuesday"
+     }
+
+
+     }
+  
     },
     {
       field: 'modifiedBy',
@@ -121,7 +129,7 @@ export default function EmpShiftTimingfromProfileData(props) {
     
     {
       field: 'edit',
-      headerName: 'Create',
+      headerName: 'Update',
       width: 119,
       flex:2,
       headerClassName: 'table-header',
@@ -150,18 +158,6 @@ export default function EmpShiftTimingfromProfileData(props) {
   ];
 
 
-
-
-
-
-
-
-
-
-
-
-
-
  const [shiftTimingsTable,setShiftTimingTable]=React.useState([])
  const[isLoading,setIsLoading]=useState(true)
 const navigate=useNavigate()
@@ -169,14 +165,12 @@ const {state}=useLocation(props.state)
 const[empId,setEmpId]=useState(state.empId)
 
 
-React.useEffect(()=>{
-
+function fetchDataOfShift(empId){
   EmployeeAccessLevelService.ShiftTimingsFromProfile(empId).then((res)=>{
-    console.log(res)
+
     if(res.status===200 && res.statusMessage==="success"){
       setIsLoading(false)
     setShiftTimingTable(res.result)
-    
     
     }
     else{
@@ -188,8 +182,13 @@ React.useEffect(()=>{
     setIsLoading(false)  
   
   })
+}
+
+
+React.useEffect(()=>{
+fetchDataOfShift(empId)
   
-},[])
+},[reportm])
 
  //backbutton
  const backbutton=useNavigate()
@@ -198,7 +197,7 @@ React.useEffect(()=>{
     <div className='App'>
       <div style={{ height: 400, width: '100%' }}>
         <Grid display={"flex"}  alignItems={"center"} justifyItems={"center"} marginTop={"10px"}>
-             <Paper elevation={0.5} style={{ width:'95%', padding: "0px 0px", margin: "0 auto" }}item xs={12}>
+             <Paper elevation={0} style={{ width:'95%', padding: "0px 0px", margin: "0 auto" }}item xs={12}>
                  
                  <Box sx={{
                 display:"flex",

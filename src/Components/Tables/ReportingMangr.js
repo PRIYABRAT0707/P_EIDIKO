@@ -76,6 +76,14 @@ const handleRow=(params)=>{
 //--------------------------------------
 const columns = [
   { 
+    field: 'id',
+   headerName: 'Id', 
+   width: 125,
+    flex:2,
+   headerClassName:'table-header'
+ 
+  },
+  { 
     field: 'empId',
    headerName: 'Emp Id', 
    width: 125,
@@ -220,7 +228,7 @@ const columns = [
   },[])
 
 
-
+console.log(reportingManagerTable)
 
 //backbutton
 const backbutton=useNavigate()
@@ -235,12 +243,7 @@ const backbutton=useNavigate()
              <Box sx={{display:"flex",
                  justifyContent:"space-between",alignContent:"center",
                  marginRight:"1px"}}>
-                 {/* <FcBusinessman  style={{fontSize:'75px',
-                    borderRadius:'50%',
-                  backgroundColor:'#2196F3',
-                  color:'white',
-                 margin:'0px 0px',
-                 padding:'0px'}}/> */}
+                
                   <center><Typography color={"secondary"} style={{marginLeft:"34px",fontSize:"26px"}}>Reporting Manager</Typography></center>
                   <Grid style={{justifyContent:"center"}}>
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"1px"}} 
@@ -268,7 +271,7 @@ const backbutton=useNavigate()
                  <DataGrid 
                   rows={reportingManagerTable}
                   columns={columns} 
-                  getRowId={(reportingManagerTable) => reportingManagerTable.empId}    
+                  getRowId={(reportingManagerTable) => reportingManagerTable.id}    
                     initialState={{
                       ...reportingManagerTable.initialState,
                     pagination: { paginationModel: { pageSize: 8} },

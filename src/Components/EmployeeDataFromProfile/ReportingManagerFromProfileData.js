@@ -42,7 +42,16 @@ export default function ReportingManagerFromProfileData(props) {
     setManager(params.row)
   }
 
+
   const columns = [
+    { 
+      field: 'id',
+     headerName: 'Id', 
+     width: 125,
+      flex:2,
+     headerClassName:'table-header'
+   
+    },
     { 
       field: 'empId',
      headerName: 'Emp Id', 
@@ -94,9 +103,7 @@ export default function ReportingManagerFromProfileData(props) {
      headerClassName:'table-header',
      valueFormatter: params => 
      moment(params?.value ? params.value.slice(0,10):"" ).format("DD/MM/YYYY"),
-      // renderCell: (params) => (
-      //  params.value ? params.value.slice(0,10):"")
-  
+      
      
     },
     { 
@@ -119,11 +126,12 @@ export default function ReportingManagerFromProfileData(props) {
   
     {
       field: 'edit',
-      headerName: 'Create',
+      headerName: 'Update',
       width: 119,
       flex:2,
       headerClassName: 'table-header',
       renderCell: (params) => {
+
           return (
               <Box sx={{
                   display: 'flex',
@@ -157,29 +165,30 @@ export default function ReportingManagerFromProfileData(props) {
   const navigate=useNavigate()
 
   const[isLoading,setIsLoading]=useState(true)
-  React.useEffect(()=>{
+ 
+function fetchRMData(empId){
+  EmployeeAccessLevelService.ReportingManagerFromProfile(empId).then((res)=>{
 
-    EmployeeAccessLevelService.ReportingManagerFromProfile(empId).then((res)=>{
-
-      if(res.status===200 && res.statusMessage==="success"){
-        setIsLoading(false)
-      setReportingManagerTable(res.result)
-      
-      
-      }
-      else{
-        setIsLoading(false)
-        toast.error(res.message, {
-          position: toast.POSITION.TOP_RIGHT
-      })
-      }
-  
-    }).catch((err)=>{
-  
-    setIsLoading(false)
+    if(res.status===200 && res.statusMessage==="success"){
+      setIsLoading(false)
+    setReportingManagerTable(res.result)
+    }
+    else{
+      setIsLoading(false)
+      toast.error(res.message, {
+        position: toast.POSITION.TOP_RIGHT
     })
-    
-  },[])
+    }
+
+  }).catch((err)=>{
+
+  setIsLoading(false)
+  })
+}
+
+  React.useEffect(()=>{
+  fetchRMData(empId)
+  },[reportm])
 
 
 
@@ -210,14 +219,13 @@ const backbutton=useNavigate()
                 
                  <Divider color='#2196F3' sx={{ margin: '4px 0px',height:"1px"}}  />
 
-                  
                   <Box style={{height:"54.5vh",width:"auto"}}>
 
                   
                  <DataGrid 
                   rows={reportingManagerTable}
                   columns={columns} 
-                  getRowId={(reportingManagerTable) => reportingManagerTable.empId}
+                  getRowId={(reportingManagerTable) => reportingManagerTable.id}
                   onRowClick={ManagerRowHandler}    
                     initialState={{
                       ...reportingManagerTable.initialState,
