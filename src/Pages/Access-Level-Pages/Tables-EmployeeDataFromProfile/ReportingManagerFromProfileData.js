@@ -17,16 +17,16 @@ import {Container} from '@mui/material';
 import Person4Icon from '@mui/icons-material/Person4';
 import {IconButton} from '@mui/material';
 import { Delete } from '@mui/icons-material';
-import { getReportingManagerTable } from '../../Services/employee-service/EmployeeService';
 import { toast } from 'react-toastify'
-import Loading from "../LoadingComponent/Loading";
+import Loading from "../../../Components/LoadingComponent/Loading";
 import { useState } from 'react';
 import moment from 'moment';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { EmployeeAccessLevelService } from '../../Services/employee-service/EmployeAccessLevelService';
+import { EmployeeAccessLevelService } from '../../../Services/Employee-Access-Level-service/EmployeeAccessService';
 import { ReportingManModal } from '../UpdateModals/ReportingManModal';
 import {Modal} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import { GlobalButton } from '../../../Components/stylecomponent/GlobalButton';
 
 export default function ReportingManagerFromProfileData(props) {
 
@@ -44,14 +44,7 @@ export default function ReportingManagerFromProfileData(props) {
 
 
   const columns = [
-    { 
-      field: 'id',
-     headerName: 'Id', 
-     width: 125,
-      flex:2,
-     headerClassName:'table-header'
    
-    },
     { 
       field: 'empId',
      headerName: 'Emp Id', 
@@ -160,7 +153,7 @@ export default function ReportingManagerFromProfileData(props) {
 
   const {state}=useLocation(props.state)
   const[empId,setEmpId]=useState(state.empId)
-
+  
   const [reportingManagerTable,setReportingManagerTable]=React.useState([])
   const navigate=useNavigate()
 
@@ -216,8 +209,16 @@ const backbutton=useNavigate()
                 </Button>
                 </Grid>
                  </Box>
-                
-                 <Divider color='#2196F3' sx={{ margin: '4px 0px',height:"1px"}}  />
+
+                <GlobalButton.GlobalDivider></GlobalButton.GlobalDivider>
+                 <Grid style={{textAlign:"right"}}>
+                <Button variant='outlined' className='style' style={{marginBottom:"3px",marginTop:"4px"}} 
+                startIcon={<Person4Icon></Person4Icon>} 
+                onClick={()=>{navigate(`../access-level-reporting-manager-creation`,{state:{"empId":empId}})}}
+                 >
+                            CREATE REPORTING MANAGER
+                </Button>
+                </Grid>
 
                   <Box style={{height:"54.5vh",width:"auto"}}>
 

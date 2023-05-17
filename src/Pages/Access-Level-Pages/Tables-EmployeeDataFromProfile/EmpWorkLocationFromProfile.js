@@ -16,17 +16,17 @@ import {Typography} from '@mui/material';
 import LocalAirportIcon from '@mui/icons-material/LocalAirport';
 import {IconButton} from '@mui/material';
 import { Delete } from '@mui/icons-material';
-import { getEmployeeWorkLocationTable } from '../../Services/employee-service/EmployeeService';
 import { toast } from 'react-toastify'
-import Loading from "../LoadingComponent/Loading";
+import Loading from "../../../Components/LoadingComponent/Loading";
 import { useState } from 'react';
 import moment from 'moment';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useLocation } from 'react-router';
-import { EmployeeAccessLevelService } from '../../Services/employee-service/EmployeAccessLevelService';
+import { EmployeeAccessLevelService } from '../../../Services/Employee-Access-Level-service/EmployeeAccessService';
 import { WorkLocationModal } from '../UpdateModals/WorkLocationModal';
 import {Modal} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
+import { GlobalButton } from '../../../Components/stylecomponent/GlobalButton';
 
 
 export default function EmpWorkLocationFromProfile(props) {
@@ -50,14 +50,7 @@ export default function EmpWorkLocationFromProfile(props) {
 
 
   const columns = [
-    { 
-      field: 'empWorkLocationId',
-     headerName: 'Location Id', 
-     width: 200,
-     flex:2,
-     headerClassName:'table-header'
    
-    },
     { 
       field: 'startDate',
      headerName: 'Start Date',
@@ -208,7 +201,14 @@ const backbutton=useNavigate()
                 </Grid>
                  </Box>
                  
-                 <Divider color='#2196F3' sx={{ margin: '4px 0px',height:"1px"}}  />
+                 <GlobalButton.GlobalDivider></GlobalButton.GlobalDivider>
+
+                 <Grid style={{textAlign:"right"}}>
+                <Button variant='outlined' className='style' style={{marginBottom:"3px",marginTop:"4px"}} startIcon={<LocalAirportIcon/>} onClick={()=>{navigate(`../access-level-working-location-creation`,{state:{"empId":empId}})}} >
+                            Create WORK
+                </Button>
+                </Grid>
+
                 <Box style={{height:"54.5vh",width:"auto"}}>
                  <DataGrid
                   onRowClick={ManagerRowHandler} 

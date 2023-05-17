@@ -25,7 +25,6 @@ import { useState } from 'react';
 import moment from 'moment';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { WorkReportingManager } from '../WorkInfoModals/WorkReportingManager';
-import { ReportingManModal } from '../UpdateModals/ReportingManModal';
 
 
 
@@ -207,7 +206,6 @@ const columns = [
   React.useEffect(()=>{
 
     getReportingManagerTable().then((res)=>{
-     console.log(res)
       if(res.status===200 && res.statusMessage==="success"){
         setIsLoading(false)
       setReportingManagerTable(res.result)

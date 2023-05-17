@@ -26,14 +26,16 @@ import EmpShiftTime from "./Components/Tables/EmpShiftTime";
 import EmpWorkLocation from "./Components/Tables/EmpWorkLocation";
 import { TaskStatus} from "./Pages/TaskDetails/TaskStatus";
 import {VerificationPending} from "./Pages/TaskDetails/VerificationPending"
-// import {StatusPending} from "./Pages/TaskDetails/StatusPending"
 import {Errorr} from "./Components/error/Errorr";
 import BiometricTable from "./Components/BiometricTables/BiometricTable";
 import { BiometricSearch } from "./Components/BiometricTables/BiometricSearch";
 import TaskDetailsElaborately from "./Components/TaskComponent/TaskDetailsElaborately";
-import EmpShiftTimingfromProfileData from "./Components/EmployeeDataFromProfile/EmpShiftTimingfromProfileData";
-import EmpWorkLocationFromProfile from "./Components/EmployeeDataFromProfile/EmpWorkLocationFromProfile";
-import ReportingManagerFromProfileData from "./Components/EmployeeDataFromProfile/ReportingManagerFromProfileData";
+import EmpShiftTimingfromProfileData from "../src/Pages/Access-Level-Pages/Tables-EmployeeDataFromProfile/EmpShiftTimingfromProfileData"
+import EmpWorkLocationFromProfile from "../src/Pages/Access-Level-Pages/Tables-EmployeeDataFromProfile/EmpWorkLocationFromProfile"
+import ReportingManagerFromProfileData from "../src/Pages/Access-Level-Pages/Tables-EmployeeDataFromProfile/ReportingManagerFromProfileData"
+import AccessReportingManager from "./Pages/Access-Level-Pages/Creation-Pages/AccessReportingManager";
+import AccessShiftTimings from "./Pages/Access-Level-Pages/Creation-Pages/AccessShiftTimings";
+import AccessWorkInfo from "./Pages/Access-Level-Pages/Creation-Pages/AccessWorkInfo";
 
 function App() {
   return (
@@ -67,7 +69,6 @@ function App() {
           <Route index path="daily-report" element={<DailyReport />} />
           <Route index path="ts" element={<TaskStatus/>}/>
           <Route index path="vp" element={<VerificationPending/>}/>
-          {/* <Route index path="sp" element={<StatusPending/>}/> */}
           <Route index path="biometric" element={<DataUpload />} />
           <Route index path="biometric-data" element={<BiometricTable/>}/>
           <Route index path="biometric-search" element={<BiometricSearch/>}/>
@@ -75,6 +76,9 @@ function App() {
           <Route index path="employee-shiftTiming-via-profile" element={<EmpShiftTimingfromProfileData/>}/>
           <Route index path="employee-workingLocation-via-profile" element={<EmpWorkLocationFromProfile/>}/>
           <Route index path="employee-reportingManager-via-profile" element={<ReportingManagerFromProfileData/>}/>
+          <Route index path="access-level-reporting-manager-creation" element={<AccessReportingManager />} />
+          <Route index path="access-level-shift-timing-creation" element={<AccessShiftTimings />} />
+          <Route index path="access-level-working-location-creation" element={<AccessWorkInfo />} />
 
         </Route>
       </Routes>

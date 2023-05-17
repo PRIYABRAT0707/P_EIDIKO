@@ -2,35 +2,32 @@ import { Box, Button, Card, CardContent, Checkbox, Container, FormControl, FormC
 import React from 'react'
 import { useState } from 'react';
 import HourglassBottomIcon from '@mui/icons-material/HourglassBottom';
-import userServiceModule from '../../Services/user-service/UserService';
 import Swal from 'sweetalert2';
-import { GlobalButton } from '../stylecomponent/GlobalButton';
+import { GlobalButton } from '../../../Components/stylecomponent/GlobalButton';
 import {Divider} from '@mui/material';
-import { EmpUpdateService } from '../../Services/Employee-Update-Service/EmpUpdSer';
-import Loading from '../LoadingComponent/Loading';
-import { helpFunction } from '../HelperComponent/helpFunction';
+import { EmployeeAccessLevelService } from '../../../Services/Employee-Access-Level-service/EmployeeAccessService';
+import Loading from '../../../Components/LoadingComponent/Loading';
+import { helpFunction } from '../../../Components/HelperComponent/helpFunction';
 import { toast } from "react-toastify";
-
+import dayjs from 'dayjs';
 
 
 
 export const ShiftTimingModal = (props) => {
 
 
-
-const [initialStartDate,setInitialStartDate]=useState("")
-const[initialEndDate,setInitialEndDate]=useState("")
-const [initialShiftStartTime,setInitialShiftStartTime]=useState({"startHour":"","startMinute":""})
-const[initialShiftEndTime,setInitialShiftEndTime]=useState({"endHour":"","endMinute":""})
+const[shiftTimingTableData,setShiftTimingTableData]=useState(props.manager)
+const [initialStartDate,setInitialStartDate]=useState(dayjs(helpFunction.helperFunctionForEndDateInput(shiftTimingTableData.startDate)).format("YYYY-MM-DD"))
+const[initialEndDate,setInitialEndDate]=useState(dayjs(helpFunction.helperFunctionForEndDateInput(shiftTimingTableData.endDate)).format("YYYY-MM-DD"))
+const [initialShiftStartTime,setInitialShiftStartTime]=useState({"startHour":shiftTimingTableData.shiftStartTime.slice(0,2),"startMinute":shiftTimingTableData.shiftStartTime.slice(3,5)})
+const[initialShiftEndTime,setInitialShiftEndTime]=useState({"endHour":shiftTimingTableData.shiftEndTime.slice(0,2),"endMinute":shiftTimingTableData.shiftEndTime.slice(3,5)})
 const button1={backgroundColor:"#2196F3",color:"#FFFFFF",borderRadius:"20px",marginBottom:"20px",width:"22%"}
 const textfield1={width: 400}
-const minute1=[0 ,15,30,45,60]
+const minute1=["00",15,30,45,60]
 const[checkValue,setCheckValue]=useState([])
 const[isLoading,setIsLoading]=useState(false)
-const[message,setMessage]=useState("")
 const [empId,setEmpId]=useState(props.empId)
 const[shiftTimingId,setshiftTimingId]=useState(props.manager.shiftTimingId)
-
 let func1=props.onClose1
 
   const handlechange=(e)=>{
@@ -57,7 +54,7 @@ let func1=props.onClose1
        let endTime3=initialShiftEndTime.endHour+":"+initialShiftEndTime.endMinute+":"+"00"
 
      if(checkValue.length===2){
-    EmpUpdateService.updateShiftTimingsService(empId,checkValue,initialStartDate,endDate1,startTime3,endTime3,shiftTimingId).then((res)=>{
+    EmployeeAccessLevelService.updateShiftTimingsService(empId,checkValue,initialStartDate,endDate1,startTime3,endTime3,shiftTimingId).then((res)=>{
        
       if(res.status===200 && res.data.statusMessage==='success'){
         console.log(res)
@@ -108,11 +105,11 @@ let func1=props.onClose1
   }
 
 
-//console.log(shiftTimingId,empId,initialEndDate,initialStartDate,initialShiftStartTime,initialShiftEndTime,checkValue)
+
 
     return (
       isLoading?<Loading/>:
-        <Card style={{maxWidth:500, padding: "10px 5px", margin: "0 auto" ,marginTop:"12px"}}>
+        <Card style={{maxWidth:430, padding: "10px 5px", margin: "0 auto" ,marginTop:"12px"}}>
         <CardContent>
             <center>
                 <Grid>
@@ -196,7 +193,7 @@ let func1=props.onClose1
             </FormGroup>
             </FormControl>
         </Grid>
-        {message.length !==0 ? <p style={{ color: "red", fontSize: "19px" }}>{message}</p>:null}
+      
         <Grid item xs={12} sx={{display:'flex',
                                 justifyContent:'center',
                                 alignItems:'center'

@@ -215,28 +215,13 @@ const columns = [
       <div style={{ height: 400, width: '100%' }}>
         <Grid display={"flex"}  alignItems={"center"} justifyItems={"center"} marginTop={"10px"}>
              <Paper elevation={0.5} style={{ width:'95%', padding: "0px 0px", margin: "0 auto" }}item xs={12}>
-                 {/* <Grid style={{textAlign:"center",display:"flex",height:"40px",justifyContent:"flex-start"}}>
-                     <AccessTimeIcon sx={{
-                         fontSize:'75px',
-                         borderRadius:'50%',
-                         backgroundColor:'#2196F3',
-                         color:'white',
-                         margin:'0px 0px',
-                         padding:'0px'
-                     }}/>
-                     <center><Typography  style={{marginBottom:"20px",fontSize:"26px",marginTop:"10px"}}>Employee Shift Timings</Typography></center>
-                 </Grid> */}
+                
                  <Box sx={{
                 display:"flex",
                 justifyContent:"space-between",
                 alignContent:"center",
                 marginRight:"1px"}}>
-                 {/* <Groups2Icon  style={{fontSize:'75px',
-                    borderRadius:'50%',
-                  backgroundColor:'#2196F3',
-                  color:'black',
-                 margin:'0px 0px',
-                 padding:'0px'}}/> */}
+                
                   <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}> Employee Shift Timing</Typography></center>
                   <Grid style={{justifyContent:"center"}}>
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"0px"}} 

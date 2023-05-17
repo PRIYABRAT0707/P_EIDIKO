@@ -1,10 +1,10 @@
 import {Button, Card, CardContent,TextField,Grid,Box, Typography } from '@mui/material';
 import React, { useState } from 'react';
-import { GlobalButton } from '../stylecomponent/GlobalButton';
+import { GlobalButton } from '../../../Components/stylecomponent/GlobalButton';
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
-import { EmpUpdateService } from '../../Services/Employee-Update-Service/EmpUpdSer';
+import { EmployeeAccessLevelService } from '../../../Services/Employee-Access-Level-service/EmployeeAccessService';
 import { toast } from "react-toastify";
-import Loading from '../LoadingComponent/Loading';
+import Loading from '../../../Components/LoadingComponent/Loading';
 
 
 
@@ -17,7 +17,7 @@ let func1=props.onClose
 
     const handleContact=(e)=>{
         setIsLoading(true)
-        EmpUpdateService.updateContact(contact,empId).then((res)=>{
+        EmployeeAccessLevelService.updateContact(contact,empId).then((res)=>{
            // console.log(res)
     if(res.status===200 && res.statusMessage==='success' )
     {

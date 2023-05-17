@@ -8,7 +8,6 @@ import { GlobalButton } from '../stylecomponent/GlobalButton';
 import {Divider} from '@mui/material';
 import Loading from '../../Components/LoadingComponent/Loading';
 import { helpFunction } from '../../Components/HelperComponent/helpFunction';
-import { EmpUpdateService } from '../../Services/Employee-Update-Service/EmpUpdSer';
 import { toast } from "react-toastify";
 import AutoEmpSearch from '../../Services/AutoEmpSearch/AutoEmpSearch';
 
@@ -88,35 +87,38 @@ const reportingManagerModalHandle=(e)=>{
     e.preventDefault()
     setIsLoading(true)
     let endDate1=helpFunction.endDateManipulation(initialEndDate)
-    EmpUpdateService.updateReportingManager(empId,managerId,initialStartDate,endDate1).then((res)=>{
-        if(res.status===201 && res.statusMessage==='success'){
+    // EmployeeAccessLevelService.updateReportingManager(empId,managerId,initialStartDate,endDate1).then((res)=>{
+    //     if(res.status===201 && res.statusMessage==='success'){
 
-            setIsLoading(false)
-            // setModalClose(true)
-            toast.success(res.message, {
-                position: toast.POSITION.TOP_CENTER
-              });
-            // Swal.fire({
-            //     position: 'center',
-            //     icon: 'success',
-            //     title: res.message,
-            //     showConfirmButton: false,
-            //     timer: 1500 })
-            }
-        else{
+    //         setIsLoading(false)
+    //         // setModalClose(true)
+    //         toast.success(res.message, {
+    //             position: toast.POSITION.TOP_CENTER
+    //           });
+    //         // Swal.fire({
+    //         //     position: 'center',
+    //         //     icon: 'success',
+    //         //     title: res.message,
+    //         //     showConfirmButton: false,
+    //         //     timer: 1500 })
+    //         }
+    //     else{
 
-            setIsLoading(false)
-            toast.error(res.message, {
-                position: toast.POSITION.TOP_CENTER
-            });
-            }
-             }).catch((error)=>{
+    //         setIsLoading(false)
+    //         toast.error(res.message, {
+    //             position: toast.POSITION.TOP_CENTER
+    //         });
+    //         }
+    //          }).catch((error)=>{
 
-                setIsLoading(false)
-                toast.error(error.response.data.message, {
-                    position: toast.POSITION.TOP_CENTER
-                });
-     })}
+    //             setIsLoading(false)
+    //             toast.error(error.response.data.message, {
+    //                 position: toast.POSITION.TOP_CENTER
+    //             });
+    //  })
+    
+    
+    }
 
      const [employee, setEmployee] = useState({
         "fromDate":"",

@@ -9,19 +9,20 @@ import SendIcon from '@mui/icons-material/Send';
 import {Divider} from '@mui/material';
 import {Typography} from '@mui/material';
 import HistoryToggleOffIcon from '@mui/icons-material/HistoryToggleOff';
-import { getShiftTimingsTable } from '../../Services/employee-service/EmployeeService';
 import { toast } from 'react-toastify'
 import {IconButton} from '@mui/material';
 import { Delete } from '@mui/icons-material';
-import Loading from "../LoadingComponent/Loading";
+import Loading from "../../../Components/LoadingComponent/Loading";
 import { useState } from 'react';
 import moment from 'moment/moment';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
-import { EmployeeAccessLevelService } from '../../Services/employee-service/EmployeAccessLevelService';
+import { EmployeeAccessLevelService } from '../../../Services/Employee-Access-Level-service/EmployeeAccessService';
 import { useLocation } from 'react-router';
 import {Modal} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
-import { ShiftTimingModal } from '../UpdateModals/ShiftTimingModal';
+import {ShiftTimingModal} from "../UpdateModals/ShiftTimingModal"
+import { GlobalButton } from '../../../Components/stylecomponent/GlobalButton';
+
 
 
 export default function EmpShiftTimingfromProfileData(props) {
@@ -38,15 +39,7 @@ export default function EmpShiftTimingfromProfileData(props) {
 
   
   const columns = [
-    { 
-      field: "shiftTimingId",
-     headerName: 'Shift-Id', 
-     width: 175,
-     flex:2,
-     headerClassName:'table-header',
-  
-   
-    },
+    
     { 
       field: 'startDate',
      headerName: 'Start Date',
@@ -78,7 +71,7 @@ export default function EmpShiftTimingfromProfileData(props) {
     },
     { 
       field: 'shiftStartTime',
-     headerName: 'shiftStartTime', 
+     headerName: 'Shift Start Time', 
      width: 200,
      flex:2,
      headerClassName:'table-header',
@@ -106,11 +99,8 @@ export default function EmpShiftTimingfromProfileData(props) {
      headerClassName:'table-header',
 
      renderCell: (params) => {
-     let data=params.formattedValue
-     let data1=data.slice(0,1)
-     let data2=data.slice(2,3)
      
-     if(data1==1 && data2==2){
+     if(params.formattedValue.slice(0,1)==1 && params.formattedValue.slice(2,3)==2){
       return "Monday,Tuesday"
      }
 
@@ -163,8 +153,6 @@ export default function EmpShiftTimingfromProfileData(props) {
 const navigate=useNavigate()
 const {state}=useLocation(props.state)
 const[empId,setEmpId]=useState(state.empId)
-
-
 function fetchDataOfShift(empId){
   EmployeeAccessLevelService.ShiftTimingsFromProfile(empId).then((res)=>{
 
@@ -210,13 +198,20 @@ fetchDataOfShift(empId)
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"0px"}} 
                  onClick={()=>{backbutton(`/user/${empId}`)}}
                  startIcon={<ArrowBackIosNewIcon/>}>
-            back
+               back
                 </Button>
                 </Grid>
                  </Box>
                  
-                 <Divider color='#2196F3' sx={{ margin: '5px 0px',height:"1px"}}  />
-                
+                 <GlobalButton.GlobalDivider></GlobalButton.GlobalDivider>
+
+                 <Grid style={{textAlign:"right"}}>
+                <Button variant='outlined' className='style' style={{marginBottom:"3px",marginTop:"4px"}}  startIcon={<HistoryToggleOffIcon/>} 
+                onClick={()=>{navigate(`../access-level-shift-timing-creation`,{state:{"empId":empId}})}} >
+                            Create Shift 
+                </Button>
+                </Grid>
+
                 <Box style={{height:"54.5vh",width:"auto"}} sx={{display:"flex"}}>
                  <DataGrid
                   rows={shiftTimingsTable}

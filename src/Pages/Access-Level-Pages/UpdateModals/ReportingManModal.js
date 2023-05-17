@@ -2,15 +2,14 @@ import { Autocomplete, Box, Button, Card, CardContent, Container, Grid, Paper, T
 import React, { useEffect } from 'react'
 import Person3Icon from '@mui/icons-material/Person3';
 import { useState } from 'react';
-import userServiceModule from '../../Services/user-service/UserService';
-import { GlobalButton } from '../stylecomponent/GlobalButton';
+import { GlobalButton } from '../../../Components/stylecomponent/GlobalButton';
 import {Divider} from '@mui/material';
-import Loading from '../../Components/LoadingComponent/Loading';
-import { helpFunction } from '../../Components/HelperComponent/helpFunction';
-import { EmpUpdateService } from '../../Services/Employee-Update-Service/EmpUpdSer';
+import Loading from '../../../Components/LoadingComponent/Loading';
+import { EmployeeAccessLevelService } from '../../../Services/Employee-Access-Level-service/EmployeeAccessService';
 import { toast } from "react-toastify";
-import AutoEmpSearch from '../../Services/AutoEmpSearch/AutoEmpSearch';
-
+import AutoEmpSearch from '../../../Services/AutoEmpSearch/AutoEmpSearch';
+import { helpFunction } from '../../../Components/HelperComponent/helpFunction';
+import dayjs from 'dayjs';
 
 export const ReportingManModal = (props) => {
     const button1={backgroundColor:"#2196F3",color:"#FFFFFF",borderRadius:"20px",marginBottom:"20px",width:"22%"}
@@ -18,12 +17,12 @@ export const ReportingManModal = (props) => {
 
  const[managerData,setManagerData]=useState(props.manager)
  const[managerId,setManagerId]=useState(managerData.reportingManagerId)
- const [initialStartDate,setInitialStartDate]=useState("")
- const[initialEndDate,setInitialEndDate]=useState("")
+ const [initialStartDate,setInitialStartDate]=useState(dayjs(helpFunction.helperFunctionForEndDateInput(managerData.startDate)).format("YYYY-MM-DD"))
+ const[initialEndDate,setInitialEndDate]=useState(dayjs(helpFunction.helperFunctionForEndDateInput(managerData.endDate)).format("YYYY-MM-DD"))
+
+
 const[empId,setEmpId]=useState(managerData.empId)
 const [reportingManagerId,setreportingManagerId]=useState(managerData.id)
-
-
 const [isLoading,setIsLoading]=useState(false)
 let func1=props.onClose1
 
@@ -31,8 +30,7 @@ const reportingManagerModalHandle=(e)=>{
     e.preventDefault()
     setIsLoading(true)
     let endDate1=helpFunction.endDateManipulation(initialEndDate)
-
-    EmpUpdateService.updateReportingManager(empId,managerId,initialStartDate,endDate1,reportingManagerId).then((res)=>{
+    EmployeeAccessLevelService.updateReportingManager(empId,managerId,initialStartDate,endDate1,reportingManagerId).then((res)=>{
         if(res.status===200 && res.statusMessage==='success'){
 
             setIsLoading(false)
@@ -62,7 +60,6 @@ const reportingManagerModalHandle=(e)=>{
  //AutoComplete
  const [data, setData]=useState([]);
  const[records,setRecords]=useState();
- console.log(managerId)
  
  useEffect(()=>{
    AutoEmpSearch(records).then((res)=>{
@@ -73,7 +70,7 @@ const reportingManagerModalHandle=(e)=>{
 
     return (
         isLoading?<Loading/>:
-        <Card style={{ maxWidth: 500, padding: "13px 5px", margin: "0 auto" ,marginTop:"55px"}}>
+        <Card style={{ maxWidth: 400, padding: "13px 5px", margin: "0 auto" ,marginTop:"5px"}}>
         <CardContent>
             <center>
             <Grid>
@@ -111,6 +108,8 @@ const reportingManagerModalHandle=(e)=>{
                     alignItems:'center'
                 }}>
                      <Autocomplete 
+                      style={{width:327}}
+                     defaultValue={managerData.reportingManagerId.toString()}
                                     sx={{display:"flex"}}
                                     options={data.map((employee)=>employee.empId+"  ("+employee.userName+")")}
                                 renderInput={(params)=> 
@@ -128,9 +127,6 @@ const reportingManagerModalHandle=(e)=>{
                                 onChange={(e)=>{setManagerId(e.target.value)}}
                             onKeyUp={(e)=>{setRecords(e.target.value)}}
                             />} />
-                        {/* <TextField required value={managerId} onChange={(e)=>{setManagerId(e.target.value)}}
-                         className='outlined-basic-text-box' id="outlined-basic" 
-                         label="Manager Id" variant="outlined" style={textfield1} type='number' /> */}
                     </Grid>
                 
                     <Grid item xs={12} sx={{display:'flex',

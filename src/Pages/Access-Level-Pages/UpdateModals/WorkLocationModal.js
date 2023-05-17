@@ -5,19 +5,22 @@ import { DatePicker, LocalizationProvider } from '@mui/x-date-pickers';
 import { useState } from 'react';
 import dayjs from 'dayjs';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
-import { GlobalButton } from '../stylecomponent/GlobalButton';
+import { GlobalButton } from '../../../Components/stylecomponent/GlobalButton';
 import {Typography} from '@mui/material';
-import { EmpUpdateService } from '../../Services/Employee-Update-Service/EmpUpdSer';
-import Loading from "../../Components/LoadingComponent/Loading";
+import { EmployeeAccessLevelService } from '../../../Services/Employee-Access-Level-service/EmployeeAccessService';
+import Loading from "../../../Components/LoadingComponent/Loading";
 import Swal from 'sweetalert2';
-import { helpFunction } from "../../Components/HelperComponent/helpFunction";
+import { helpFunction } from "../../../Components/HelperComponent/helpFunction";
 import { toast } from "react-toastify";
 
-export const WorkLocationModal = (props) => {
-const [initialStartDate,setInitialStartDate]=useState("")
-const[initialEndDate,setInitialEndDate]=useState("")
-const[location,setLocation]=useState("")
-const[wloc,setWloc]=useState("")
+export const WorkLocationModal = (props) =>
+
+{
+  const[working,setWorking]=useState(props.working)  
+const [initialStartDate,setInitialStartDate]=useState(dayjs(helpFunction.helperFunctionForEndDateInput(working.startDate)).format("YYYY-MM-DD"))
+const[initialEndDate,setInitialEndDate]=useState(dayjs(helpFunction.helperFunctionForEndDateInput(working.endDate)).format("YYYY-MM-DD"))
+const[location,setLocation]=useState(working.workingFrom)
+const[wloc,setWloc]=useState(working.location)
 const[empId,setEmpId]=useState(props.empId)
 const[empWorkLocationId,setempWorkLocationId]=useState(props.working.empWorkLocationId)
 
@@ -30,7 +33,7 @@ const updateEmployeeWorkInfo=(e)=>{
 e.preventDefault()
 setIsLoading(true)
 let endDate1=helpFunction.endDateManipulation(initialEndDate)
-EmpUpdateService.updateWorkingLocation(empWorkLocationId,empId,initialStartDate,endDate1,location,wloc).then((res)=>{
+EmployeeAccessLevelService.updateWorkingLocation(empWorkLocationId,empId,initialStartDate,endDate1,location,wloc).then((res)=>{
 
     if(res.status===200 && res.statusMessage==='success' ){
         setIsLoading(false)
@@ -62,7 +65,7 @@ EmpUpdateService.updateWorkingLocation(empWorkLocationId,empId,initialStartDate,
 
     return (
         isLoading ? <Loading/> :
-        <Card style={{ maxWidth: 500, padding: "13px 5px", margin: "0 auto" ,marginTop:"10px"}}>
+        <Card style={{ maxWidth: 350, padding: "13px 5px", margin: "0 auto" ,marginTop:"10px"}}>
         <CardContent>
             <center>
                 <Grid>

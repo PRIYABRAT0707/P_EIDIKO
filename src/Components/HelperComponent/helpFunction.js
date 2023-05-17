@@ -11,6 +11,18 @@ export const helpFunction={
             
             return  date=endDate
         }
-       } 
+       },
+       
+       helperFunctionForEndDateInput:function(date){
+        if(date!==null){
+         return date.slice(0,10)
+        }
+        else {
+            return ""
+        }
+
+       }
 
 }
+
+

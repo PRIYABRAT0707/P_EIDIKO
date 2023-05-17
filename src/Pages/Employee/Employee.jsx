@@ -17,10 +17,7 @@ import {FormControl,InputLabel,Select,MenuItem} from "@mui/material";
 import {Checkbox,FormLabel,FormGroup,FormControlLabel} from '@mui/material';
 import { GlobalButton } from '../../Components/stylecomponent/GlobalButton';
 //updatemodals
-import { ContactModal } from '../../Components/UpdateModals/ContactModal';
-import { ReportingManModal } from '../../Components/UpdateModals/ReportingManModal';
-import { WorkLocationModal } from '../../Components/UpdateModals/WorkLocationModal';
-import { ShiftTimingModal } from '../../Components/UpdateModals/ShiftTimingModal';
+import {ContactModal} from "../Access-Level-Pages/UpdateModals/ContactModal"
 import Loading from "../../Components/LoadingComponent/Loading";
 import ArrowCircleUpIcon from '@mui/icons-material/ArrowCircleUp';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
