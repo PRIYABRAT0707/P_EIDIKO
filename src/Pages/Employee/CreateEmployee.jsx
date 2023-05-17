@@ -141,7 +141,7 @@ isLoading ? <Loading/> :
                         padding: '10px'
                     }} /> */}
 
-                <Typography color={"secondary"}style={{marginLeft:"34px",fontSize:"26px"}}>Create Employee</Typography>
+                <Typography color={"secondary"}style={{marginLeft:"34px",fontSize:"26px"}}>CREATE EMPLOYEE</Typography>
                 <Grid style={{justifyContent:"center"}}>
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"12px"}} 
                  onClick={()=>{backbutton("/user/employees")}}

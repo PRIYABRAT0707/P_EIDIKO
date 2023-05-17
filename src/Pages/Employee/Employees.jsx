@@ -178,8 +178,12 @@ const backbutton=useNavigate()
                   color:'black',
                  margin:'0px 0px',
                  padding:'0px'}}/> */}
-                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}>Employees</Typography></center>
+                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}>EMPLOYEES</Typography></center>
                   <Grid style={{justifyContent:"center"}}>
+                  <Button variant='outlined'className='style' style={{color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"10px"}} startIcon={<FaUserPlus />}
+                 onClick={NavigateCreateEmployee} >
+               CREATE EMPLOYEE 
+                </Button>
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"12px"}} 
                  onClick={()=>{backbutton("/user/profile")}}
                  startIcon={<ArrowBackIosNewIcon/>}>
@@ -205,11 +209,7 @@ const backbutton=useNavigate()
             <Box style={{marginLeft:"33px",width:"95%"}}>
             <Divider color='#2196F3' sx={{ margin: '1px 0px',height:"1px"}}  />
             </Box>
-            <Grid style={{textAlign:"right",marginRight:"42px"}}>
-                <Button variant='outlined'className='style' style={{color:"#2196F3",marginBottom:"3px",marginTop:"4px"}} startIcon={<FaUserPlus />} onClick={NavigateCreateEmployee} >
-                Create Employee 
-                </Button>
-                </Grid>
+           
             <Box style={{height:"54.5vh",width:"auto",marginLeft:"35px",marginRight:"40px"}}>
                 <DataGrid sx={{
                     // disable cell selection style

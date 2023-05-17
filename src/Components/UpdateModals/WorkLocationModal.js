@@ -12,8 +12,27 @@ import Loading from "../../Components/LoadingComponent/Loading";
 import Swal from 'sweetalert2';
 import { helpFunction } from "../../Components/HelperComponent/helpFunction";
 import { toast } from "react-toastify";
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+
 
 export const WorkLocationModal = (props) => {
+
+     //------EndDate
+  const[visible,setVisible]=useState(false);
+  const[status,setStatus]=useState("click")
+
+  const handlelerButton=(e)=>{
+if(status==="click"){
+ setVisible(true)
+  setStatus("")
+}
+else if(status!==1){
+setVisible(false)
+ setStatus("click")
+}
+  }
+  //------------
 
     const [initialStartDate,setInitialStartDate]=useState("")
       const[initialEndDate,setInitialEndDate]=useState("")
@@ -66,16 +85,9 @@ EmpUpdateService.updateWorkingLocation(empId,initialStartDate,endDate1,location,
         <CardContent>
             <center>
                 <Grid>
-                <WorkIcon sx={{
-                    fontSize: '50px',
-                    borderRadius: '50%',
-                    backgroundColor: '#2196F3',
-                    color: 'black',
-                    margin: '10px 100px',
-                    padding: '10px'
-                }} />
+               
                 <Typography  style={{fontSize:"25px"}} color="primary">
-           Update Working Location
+           UPDATE WORKING LOCATION
         </Typography>
                 </Grid>
                 <p>
@@ -109,16 +121,58 @@ EmpUpdateService.updateWorkingLocation(empId,initialStartDate,endDate1,location,
 
 
                 </Grid>
-                <Grid item xs={12} sx={{display:'flex',
+                {/* <Grid item xs={12} sx={{display:'flex',
                 justifyContent:'center',
                 alignItems:'center'
             }}>
-                {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
-                    <DatePicker label="End Date" defaultValue={dayjs('2023-01-01')} className='outlined-basic-text-box'  sx={{width:400}} />
-                 </LocalizationProvider>       */}
                  <TextField InputLabelProps={{shrink: true,}} className='outlined-basic-text-box' id="outlined-basic1" label="End Date" variant="outlined" style={textfield1} type='date'
                 value={initialEndDate} onChange={(e)=>{setInitialEndDate(e.target.value)}} />  
-                </Grid>
+                </Grid> */}
+                <Grid item xs={12}className='form-group row'
+             sx={{display:'flex',
+                                justifyContent:'center',
+                                // alignItems:'center'
+                                marginRight:"213px"
+                            }}>
+
+                     <Grid className='col-sm-2  mt-2'>
+                     {
+                        status==="click"?<Button>
+                        <AddIcon className='mx-2' name="isyes" style={{color:"0c93fa",}}
+                         onClick={handlelerButton}
+    
+                         />
+                         </Button>
+                         :
+                         <Button>
+                        <RemoveIcon className='mx-2' name="isyes" style={{color:"0c93fa",}}
+                         onClick={handlelerButton}
+    
+                         />
+                         </Button>
+                      }
+                     <label className='col-sm-4 col-form-label'>Add EndDate(Optional)</label>
+
+                   
+                 </Grid>
+                  </Grid>
+                  
+                  { 
+                  visible &&
+                  
+                     <Grid item xs={12} sx={{display:'flex',
+                                justifyContent:'center',
+                                // alignItems:'center'
+                            }}>
+                                 
+                        <TextField InputLabelProps={{shrink: true,}}
+                        className='outlined-basic-text-box' id="outlined-basic1" 
+                        label="End Date" variant="outlined" style={textfield1} type='date'
+                                      value={initialEndDate}
+                          onChange={(e) => {setInitialEndDate(e.target.value)}} />  
+                                  
+            </Grid >
+                }
                 <Grid item xs={12} sx={{display:'flex',
                 justifyContent:'center',
                 alignItems:'center'

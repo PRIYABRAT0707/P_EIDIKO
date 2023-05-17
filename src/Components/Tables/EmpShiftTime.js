@@ -168,7 +168,7 @@ const columns = [
    
   },
   {
-    field: 'modifiedBy',
+    field: 'modifiedByWithName',
    headerName: 'Modified By', 
    width: 200,
    flex:2,
@@ -237,8 +237,12 @@ const columns = [
                   color:'black',
                  margin:'0px 0px',
                  padding:'0px'}}/> */}
-                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}> Employee Shift Timing</Typography></center>
+                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}> EMPLOYEE SHIFT TIMING</Typography></center>
                   <Grid style={{justifyContent:"center"}}>
+                  <Button variant='outlined' className='style' style={{marginBottom:"3px",marginTop:"4px",marginRight:"10px"}}  startIcon={<HistoryToggleOffIcon/>} 
+                onClick={()=>{navigate("/user/shift-timings")}} >
+                            CREATE SHIFT
+                </Button>
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"0px"}} 
                  onClick={()=>{backbutton("/user/profile")}}
                  startIcon={<ArrowBackIosNewIcon/>}>
@@ -249,10 +253,7 @@ const columns = [
                  
                  <Divider color='#2196F3' sx={{ margin: '5px 0px',height:"1px"}}  />
                  <Grid style={{textAlign:"right"}}>
-                <Button variant='outlined' className='style' style={{marginBottom:"3px",marginTop:"4px"}}  startIcon={<HistoryToggleOffIcon/>} 
-                onClick={()=>{navigate("/user/shift-timings")}} >
-                            Create Shift 
-                </Button>
+               
                 </Grid>
                
                

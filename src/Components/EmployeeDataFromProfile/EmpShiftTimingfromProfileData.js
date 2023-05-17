@@ -22,7 +22,7 @@ import { useLocation } from 'react-router';
 import {Modal} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import { ShiftTimingModal } from '../UpdateModals/ShiftTimingModal';
-
+import WatchLaterIcon from '@mui/icons-material/WatchLater';
 
 export default function EmpShiftTimingfromProfileData(props) {
 
@@ -39,7 +39,14 @@ export default function EmpShiftTimingfromProfileData(props) {
   }
 
   
-
+ //----used at shift timing
+ const[tableData,setTableData]=useState([])
+ const[manager1,setmanager1]=useState([])
+ const handleRow=(params)=>{
+   setTableData(params.row)
+   setmanager1(params.row)
+ }
+ //------
 
   const columns = [
     { 
@@ -111,7 +118,7 @@ export default function EmpShiftTimingfromProfileData(props) {
      
     },
     {
-      field: 'modifiedBy',
+      field: 'modifiedByWithName',
      headerName: 'Modified By', 
      width: 200,
      flex:2,
@@ -148,19 +155,6 @@ export default function EmpShiftTimingfromProfileData(props) {
   }
   
   ];
-
-
-
-
-
-
-
-
-
-
-
-
-
 
  const [shiftTimingsTable,setShiftTimingTable]=React.useState([])
  const[isLoading,setIsLoading]=useState(true)
@@ -206,7 +200,8 @@ React.useEffect(()=>{
                 alignContent:"center",
                 marginRight:"1px"}}>
                  
-                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}> Employee Shift Timing</Typography></center>
+                  <center><Typography  color={"secondary"}
+                   style={{fontSize:"26px",marginLeft:"34px"}}> EMPLOYEE SHIFT TIMING</Typography></center>
                   <Grid style={{justifyContent:"center"}}>
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"0px"}} 
                  onClick={()=>{backbutton(`/user/${empId}`)}}
@@ -217,7 +212,7 @@ React.useEffect(()=>{
                  </Box>
                  
                  <Divider color='#2196F3' sx={{ margin: '5px 0px',height:"1px"}}  />
-                
+               
                 <Box style={{height:"54.5vh",width:"auto"}} sx={{display:"flex"}}>
                  <DataGrid
                   rows={shiftTimingsTable}

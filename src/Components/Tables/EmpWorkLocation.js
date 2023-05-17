@@ -167,7 +167,7 @@ const columns = [
    
   },
   {
-    field: 'modifiedBy',
+    field: 'modifiedByWithName',
    headerName: 'Modified By', 
    width: 220,
    flex:2,
@@ -238,8 +238,11 @@ const columns = [
                   color:'black',
                  margin:'0px 0px',
                  padding:'0px'}}/> */}
-                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}>Employee Work Location</Typography></center>
+                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}>EMPLOYEE WORK LOCATION</Typography></center>
                   <Grid style={{justifyContent:"center"}}>
+                  <Button variant='outlined' className='style' style={{marginBottom:"3px",marginTop:"4px",marginRight:"10px"}} startIcon={<LocalAirportIcon/>} onClick={()=>{navigate("/user/workinfo")}} >
+                            CREATE WORK
+                </Button>
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"0px"}} 
                  onClick={()=>{backbutton("/user/profile")}}
                  startIcon={<ArrowBackIosNewIcon/>}>
@@ -249,11 +252,7 @@ const columns = [
                  </Box>
                  
                  <Divider color='#2196F3' sx={{ margin: '4px 0px',height:"1px"}}  />
-                 <Grid style={{textAlign:"right"}}>
-                <Button variant='outlined' className='style' style={{marginBottom:"3px",marginTop:"4px"}} startIcon={<LocalAirportIcon/>} onClick={()=>{navigate("/user/workinfo")}} >
-                            Create WORK
-                </Button>
-                </Grid>
+                
                 <Box style={{height:"54.5vh",width:"auto"}}>
                  <DataGrid
                   rows={workLocationTable}

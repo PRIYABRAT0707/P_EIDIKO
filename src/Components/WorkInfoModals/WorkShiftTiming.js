@@ -18,9 +18,30 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from 'react-router';
 import Loading from '../../Components/LoadingComponent/Loading';
 import { GlobalButton } from '../stylecomponent/GlobalButton';
+import AddIcon from '@mui/icons-material/Add';
+import RemoveIcon from '@mui/icons-material/Remove';
+
+
 
 
 export default function WorkShiftTiming(props){
+
+   //------EndDate
+   const[visible,setVisible]=useState(false);
+   const[status,setStatus]=useState("click")
+ 
+   const handlelerButton=(e)=>{
+ if(status==="click"){
+  setVisible(true)
+   setStatus("")
+ }
+ else if(status!==1){
+ setVisible(false)
+  setStatus("click")
+ }
+   }
+   //------------
+
 //-------------------------------
 const[manager1,setManager1]=useState(props.manager)
 
@@ -173,7 +194,7 @@ return(
             <Grid>
             
                  <Typography style={{fontSize:"25px",marginBottom:"10px"}} color="primary">
-                 Shift Timing
+                 SHIFT TIMING
                  </Typography>     
             </Grid>
             </center>
@@ -279,17 +300,54 @@ return(
                                     />
 
      </Grid >
-     <Grid item xs={12} sx={{display:'flex',
-                        justifyContent:'center',
-                        alignItems:'center'
-                    }}>
+     <Grid item xs={12}className='form-group row'
+             sx={{display:'flex',
+                                justifyContent:'center',
+                                // alignItems:'center'
+                                marginRight:"299px"
+                            }}>
+
+                     <Grid className='col-sm-2  mt-2'>
+                      
+                      {
+                        status==="click"?<Button>
+                        <AddIcon className='mx-2' name="isyes" style={{color:"0c93fa",}}
+                         onClick={handlelerButton}
+    
+                         />
+                         </Button>
+                         :
+                         <Button>
+                        <RemoveIcon className='mx-2' name="isyes" style={{color:"0c93fa",}}
+                         onClick={handlelerButton}
+    
+                         />
+                         </Button>
+                      }
+                     <label className='col-sm-4 col-form-label'>Add EndDate(Optional)</label>
+
+                   
+                 </Grid>
+                  </Grid>
+                  
+                  { 
+                  visible ?
+                  
+                     <Grid item xs={12} sx={{display:'flex',
+                                justifyContent:'center',
+                                // alignItems:'center'
+                            }}>
+                                 
+                        <TextField InputLabelProps={{shrink: true,}}
+                        className='outlined-basic-text-box' id="outlined-basic1" 
+                        label="End Date" variant="outlined" style={textfield1} type='date'
+                                      value={endDate}
+                          onChange={(e) => {setEndDate(e.target.value)}} />  
+                                  
+            </Grid >:null
+                }
                            
 
-<TextField InputLabelProps={{shrink: true,}} className='outlined-basic-text-box' id="outlined-basic1" label="End Date" variant="outlined" style={textfield1} type='date'
-                                        value={endDate}
-                                        onChange={(event) => {setEndDate(event.target.value)}}
-                                    />  
-</Grid >
 <Grid item xs={12} sx={{display:'flex',justifyContent:'center',
                         alignItems:'center'
    }}>

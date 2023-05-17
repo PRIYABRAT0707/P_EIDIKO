@@ -28,7 +28,6 @@ import { WorkLocationModal } from '../UpdateModals/WorkLocationModal';
 import {Modal} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 
-
 export default function EmpWorkLocationFromProfile(props) {
 
   const [reportm,setReportm]=useState(false)
@@ -44,6 +43,14 @@ export default function EmpWorkLocationFromProfile(props) {
   }
 
 
+ //----used at create location
+ const[tableData,setTableData]=useState([])
+ const[manager1,setmanager1]=useState([])
+ const handleRow=(params)=>{
+   setTableData(params.row)
+   setmanager1(params.row)
+ }
+ //------
 
 
 
@@ -68,25 +75,25 @@ export default function EmpWorkLocationFromProfile(props) {
      moment(params?.value).format("DD/MM/YYYY"),
      
     },
-    { 
-      field: 'endDate',
-     headerName: 'End Date', 
-     width: 300,
-     flex:2,
-     headerClassName:'table-header',
-     valueFormatter: params => 
-     {
-      let enddate=""
-      if(params?.value!==null){
-       enddate=moment(params?.value).format("DD/MM/YYYY")
-       return enddate
-      }
-   else{
-     return null
-   }
-     }
+  //   { 
+  //     field: 'endDate',
+  //    headerName: 'End Date', 
+  //    width: 300,
+  //    flex:2,
+  //    headerClassName:'table-header',
+  //    valueFormatter: params => 
+  //    {
+  //     let enddate=""
+  //     if(params?.value!==null){
+  //      enddate=moment(params?.value).format("DD/MM/YYYY")
+  //      return enddate
+  //     }
+  //  else{
+  //    return null
+  //  }
+  //    }
   
-    },
+  //   },
     { 
       field: 'workingFrom',
      headerName: 'Working From', 
@@ -104,7 +111,7 @@ export default function EmpWorkLocationFromProfile(props) {
      
     },
     {
-      field: 'modifiedBy',
+      field: 'modifiedByWithName',
      headerName: 'Modified By', 
      width: 220,
      flex:2,
@@ -195,7 +202,8 @@ const backbutton=useNavigate()
                 justifyContent:"space-between",
                 alignContent:"center",
                 marginRight:"1px"}}>
-                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}>Employee Work Location</Typography></center>
+                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}>
+                    EMPLOYEE WORK LOCATION</Typography></center>
                   <Grid style={{justifyContent:"center"}}>
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"0px"}} 
                  onClick={()=>{backbutton(`/user/${empId}`)}}
@@ -206,6 +214,7 @@ const backbutton=useNavigate()
                  </Box>
                  
                  <Divider color='#2196F3' sx={{ margin: '4px 0px',height:"1px"}}  />
+              
                 <Box style={{height:"54.5vh",width:"auto"}}>
                  <DataGrid
                   onRowClick={ManagerRowHandler} 

@@ -6,7 +6,6 @@ import {
    Paper,
    Typography,
         } from "@mui/material";
-
 import {FcBusinessman} from "react-icons/fc";
 import { DataGrid } from '@mui/x-data-grid';
 import { Button } from '@mui/material';
@@ -41,6 +40,14 @@ export default function ReportingManagerFromProfileData(props) {
   const ManagerRowHandler=(params)=>{
     setManager(params.row)
   }
+  //----used at create reporting manager
+  const[tableData,setTableData]=useState([])
+  const[manager1,setmanager1]=useState([])
+  const handleRow=(params)=>{
+    setTableData(params.row)
+    setmanager1(params.row)
+  }
+  //------
 
   const columns = [
     { 
@@ -67,17 +74,7 @@ export default function ReportingManagerFromProfileData(props) {
      headerClassName:'table-header'
   
     },
-    { 
-      field: 'modifiedDate',
-     headerName: 'Modified Date', 
-     width: 295,
-      flex:2,
-     headerClassName:'table-header',
-     valueFormatter: params => 
-     moment(params?.value).format("DD/MM/YYYY"),
-  
-     
-    },
+   
     { 
       field: 'reportingManagerName',
      headerName: 'Manager Name', 
@@ -115,6 +112,17 @@ export default function ReportingManagerFromProfileData(props) {
     return null
   }
     }
+    },
+    { 
+      field: 'modifiedDate',
+     headerName: 'Modified Date', 
+     width: 295,
+      flex:2,
+     headerClassName:'table-header',
+     valueFormatter: params => 
+     moment(params?.value).format("DD/MM/YYYY"),
+  
+     
     },
   
     {
@@ -198,7 +206,7 @@ const backbutton=useNavigate()
                  justifyContent:"space-between",alignContent:"center",
                  marginRight:"1px"}}>
                 
-                  <center><Typography color={"secondary"} style={{marginLeft:"34px",fontSize:"26px"}}>Reporting Manager</Typography></center>
+                  <center><Typography color={"secondary"} style={{marginLeft:"34px",fontSize:"26px"}}>REPORTING MANAGER</Typography></center>
                   <Grid style={{justifyContent:"center"}}>
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"1px"}} 
                  onClick={()=>{backbutton(`/user/${empId}`)}}
@@ -209,8 +217,7 @@ const backbutton=useNavigate()
                  </Box>
                 
                  <Divider color='#2196F3' sx={{ margin: '4px 0px',height:"1px"}}  />
-
-                  
+           
                   <Box style={{height:"54.5vh",width:"auto"}}>
 
                   

@@ -2,7 +2,6 @@ import { Autocomplete, Grid } from "@mui/material";
 import {TextField} from "@mui/material";
 import { LocalizationProvider,TimePicker } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import dayjs from "dayjs";
 import {Box} from "@mui/material";
 import {FormControl,InputLabel,Select,MenuItem} from "@mui/material";
 import { useEffect, useState } from "react";
@@ -18,15 +17,32 @@ import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from "react-router";
 import Loading from "../../Components/LoadingComponent/Loading";
 import AutoEmpSearch from "../../Services/AutoEmpSearch/AutoEmpSearch";
-
+import AddIcon from '@mui/icons-material/Add';
+import dayjs from 'dayjs';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 
 export default  function WorkInfo(){
+    //------EndDate
+    const[visible,setVisible]=useState(false);
+    const[status,setStatus]=useState("click")
+  
+    const handlelerButton=(e)=>{
+  if(status==="click"){
+   setVisible(true)
+    setStatus("")
+  }
+  else if(status!==1){
+  setVisible(false)
+   setStatus("click")
+  }
+    }
+    //------------
     const button1={backgroundColor:"#2196F3",color:"white",borderRadius:"20px",marginBottom:"20px",width:"22%"}
     const textfield1={width: 400}
     const[empId,setEmpId]=useState("")
-    const [startDate,setstartDate]=useState(new Date("2000-01-01"))
-    const [endDate,setEndDate]=useState(new Date("2000-01-01"))
+    const [startDate,setstartDate]=useState(dayjs().format("YYYY-MM-DD"))
+    const [endDate,setEndDate]=useState("")
     const[workingFrom,setWorkingFrom]=useState("")
     const[location,setLocation]=useState("")
    const[isLoading,setIsLoading]=useState(false)
@@ -111,53 +127,14 @@ const backbutton=useNavigate()
         isLoading ? <Loading/> :
         
 <Box style={{backgroundColor:"#FFFFFF",height:"92vh"}}>
-{/* <Box sx={{
-                display: 'flex',
-                alignContent: 'center',
-                justifyContent: 'flex-end',
-                marginTop:"10px",
-                marginRight:"10px"
-            }}>
 
-          <Button variant="outlined" style={{color:"#2196F3"}} onClick={()=>{navigate("/user/employee-work-location-data")}} startIcon={<ArrowBackIosNewIcon/>}>back</Button>
-
-            </Box> */}
-
-
-{/* <Box sx={{
-    display: 'flex',
-    alignContent: 'center',
-    justifyContent: 'center',
-    boxShadow:0
-}}>
-    <Box>
-        <WorkIcon sx={{
-            fontSize: '50px',
-            borderRadius: '50%',
-            backgroundColor: '#2196F3',
-            color: 'black',
-            margin: '10px 100px',
-            padding: '10px'
-        }} />
-
-        <Typography  style={{marginLeft:"30px",fontSize:"28px"}} color="#2196F3">
-            Working Location
-        </Typography>
-    </Box>
-</Box> */}
 
 <Box sx={{
                 display:"flex",
                 justifyContent:"space-between",
                 alignContent:"center",
                 marginRight:"30px"}}>
-                 {/* <Groups2Icon  style={{fontSize:'75px',
-                    borderRadius:'50%',
-                  backgroundColor:'#2196F3',
-                  color:'black',
-                 margin:'0px 0px',
-                 padding:'0px'}}/> */}
-                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}>Working Location</Typography></center>
+                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}>WORKING LOCATION</Typography></center>
                   <Grid style={{justifyContent:"center"}}>
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"12px"}} 
                  onClick={()=>{backbutton("/user/employee-work-location-data")}}
@@ -196,10 +173,6 @@ const backbutton=useNavigate()
                                 onChange={(e)=>{setEmpId(e.target.value)}} 
                             onKeyUp={(e)=>{setRecords(e.target.value)}}
                             />} />
-                            {/* <TextField required value={empId} 
-                            onChange={(e)=>{setEmpId(e.target.value)}} 
-                             className='outlined-basic-text-box' id="outlined-basic"
-                              label="Employee Id" variant="outlined"  sx={{width:400}}/> */}
                         </Grid>
 
                         <Grid  item xs={12} sx={{display:'flex',
@@ -210,33 +183,56 @@ const backbutton=useNavigate()
                                         value={startDate}
                                         onChange={(event) =>setstartDate(event.target.value)}
                                     />
-{/*                             
-                            <LocalizationProvider dateAdapter={AdapterDayjs}>
-
-<DatePicker label="Start Date" defaultValue={dayjs('2023-01-01')} className='outlined-basic-text-box'  sx={{width:400}} />
-</LocalizationProvider> */}
-
                         </Grid>
-                        <Grid item xs={12} sx={{display:'flex',
-                        justifyContent:'center',
-                        alignItems:'center'
-                    }}>
-{/*                            
-                           <LocalizationProvider dateAdapter={AdapterDayjs}>
+                     
+                        <Grid item xs={12}className='form-group row'
+             sx={{display:'flex',
+                                justifyContent:'center',
+                                // alignItems:'center'
+                                marginRight:"209px"
+                            }}>
 
-<DatePicker label="End Date" defaultValue={dayjs('2023-01-01')} className='outlined-basic-text-box'  sx={{width:400}} />
-</LocalizationProvider> */}
- <TextField className='outlined-basic-text-box' id="outlined-basic" label="Start Date" variant="outlined" style={textfield1} type='date'
-                                        value={endDate}
-                                        onChange={(event) =>setEndDate(event.target.value)}
-                                    />
-
-                            
-                        </Grid>
-
+                     <Grid className='col-sm-2  mt-2'>
                       
-                    
-                        <Grid item xs={12} sx={{display:'flex',
+                      {
+                        status==="click"?<Button>
+                        <AddIcon className='mx-2' name="isyes" style={{color:"0c93fa",}}
+                         onClick={handlelerButton}
+    
+                         />
+                         </Button>
+                         :
+                         <Button>
+                        <RemoveIcon className='mx-2' name="isyes" style={{color:"0c93fa",}}
+                         onClick={handlelerButton}
+    
+                         />
+                         </Button>
+                      }
+                     <label className='col-sm-4 col-form-label'>Add EndDate(Optional)</label>
+
+                   
+                 </Grid>
+                  </Grid>
+                  
+                  { 
+                  visible ?
+                  
+                     <Grid item xs={12} sx={{display:'flex',
+                                justifyContent:'center',
+                                // alignItems:'center'
+                            }}>
+                                 
+                        <TextField InputLabelProps={{shrink: true,}}
+                        className='outlined-basic-text-box' id="outlined-basic1" 
+                        label="End Date" variant="outlined" style={textfield1} type='date'
+                                      value={endDate}
+                          onChange={(e) => {setEndDate(e.target.value)}} />  
+                                  
+            </Grid >:null
+                }
+
+                 <Grid item xs={12} sx={{display:'flex',
                         justifyContent:'center',
                         alignItems:'center'
                     }}>

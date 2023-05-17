@@ -11,9 +11,30 @@ import { helpFunction } from '../../Components/HelperComponent/helpFunction';
 import { EmpUpdateService } from '../../Services/Employee-Update-Service/EmpUpdSer';
 import { toast } from "react-toastify";
 import AutoEmpSearch from '../../Services/AutoEmpSearch/AutoEmpSearch';
+import AddIcon from '@mui/icons-material/Add';
+import dayjs from 'dayjs';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 
 export const WorkReportingManager = (props) => {
+   
+     //------EndDate
+  const[visible,setVisible]=useState(false);
+  const[status,setStatus]=useState("click")
+
+  const handlelerButton=(e)=>{
+if(status==="click"){
+ setVisible(true)
+  setStatus("")
+}
+else if(status!==1){
+setVisible(false)
+ setStatus("click")
+}
+  }
+  //------------
+    
+    
     //method for date format for modified date
 const dateFormat=(date)=>{
     let date1=""
@@ -28,20 +49,22 @@ return date1
 //----------------------
 
 const[manager1,setManager1]=useState(props.manager1)
-console.log(manager1)
+
 const[empId,setEmpId]=useState(manager1.empId)
 const[managerId,setManagerId]=useState(manager1.reportingManagerId)
 const[modifiedby,setModifiedBy]=useState(manager1.modifiedBy)
-console.log(modifiedby)
+
 const[modifiedDate,setModifiedDate]=useState(dateFormat(manager1.modifiedDate))
 const[reportingManager,setReportingManager]=useState(manager1.reportingManagerName)
-const [startDate,setstartDate]=useState(manager1.startDate)
-const [endDate,setEndDate]=useState(manager1.endDate)
+const [startDate,setstartDate]=useState(dayjs().format("YYYY-MM-DD"))
+const [endDate,setEndDate]=useState("")
 
 
 
 //AutoComplete
-const [data, setData]=useState([]);
+const [data, setData]=useState([{
+    empId:727
+}]);
 const[records,setRecords]=useState();
 
 useEffect(()=>{
@@ -132,7 +155,7 @@ const reportingManagerModalHandle=(e)=>{
             <Grid>
             
                  <Typography style={{fontSize:"25px",marginBottom:"10px"}} color="primary">
-                 Reporting Manager
+                REPORTING MANAGER
                  </Typography>     
             </Grid>
             </center>
@@ -159,13 +182,14 @@ const reportingManagerModalHandle=(e)=>{
                     alignItems:'center'
                 }}>
                     <Autocomplete 
+                     value={managerId}
             sx={{display:"flex"}}
             options={data.map((employee)=>employee.empId+"  ("+employee.userName+")")}
                                 renderInput={(params)=> 
                                 <TextField
                                 style={textfield1}
                                 required
-                                value={managerId}
+                               
                                  {...params} 
                                 label='Manager Id'
                                 className='outlined-basic-text-box'
@@ -177,45 +201,7 @@ const reportingManagerModalHandle=(e)=>{
                             />}
             />
 
-                        {/* <TextField required value={props.managerId} 
-                        onChange={(e)=>{setManagerId(e.target.value)}} 
-                        className='outlined-basic-text-box' id="outlined-basic" 
-                        label="Manager Id" variant="outlined" 
-                        style={textfield1} type='number' /> */}
-                    </Grid>
-                    {/* <Grid item xs={12} sx={{display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center'
-                }}>
-                        <TextField required value={modifiedby} 
-                        onChange={(e)=>{setModifiedBy(e.target.value)}} 
-                        className='outlined-basic-text-box' id="outlined-basic"
-                         label="Modified By" variant="outlined" 
-                        style={textfield1} type='text' />
-                    </Grid>
-
-                    <Grid item xs={12} sx={{display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center'
-                }}>
-            <TextField required value={modifiedDate}
-             onChange={(e)=>{setModifiedDate(e.target.value)}} 
-            className='outlined-basic-text-box' id="outlined-basic1" 
-            label="Modified Date" variant="outlined" 
-            style={textfield1} type='date' />  
-                    </Grid >
-                    <Grid item xs={12} sx={{display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center'
-                }}>
-            <TextField required  
-            className='outlined-basic-text-box' id="outlined-basic1" 
-            label="Manager Name" variant="outlined" 
-            style={textfield1} type='text' 
-            value={reportingManager}
-             onChange={(e)=>{setReportingManager(e.target.value)}} 
-            />  
-                    </Grid > */}
+                     </Grid>
 
                     <Grid item xs={12} sx={{display:'flex',
                     justifyContent:'center',
@@ -227,15 +213,58 @@ const reportingManagerModalHandle=(e)=>{
             label="Start Date" variant="outlined" 
             style={textfield1} type='date' />  
                     </Grid >
-                    <Grid item xs={12} sx={{display:'flex',
-                    justifyContent:'center',
-                    alignItems:'center'
-                }}>
-                <TextField className='outlined-basic-text-box' id="outlined-basic1" 
-                label="End Date" variant="outlined" style={textfield1} type='date'
-                value={endDate} onChange={(e)=>{setEndDate(e.target.value)}} />  
-                </Grid >
-                
+
+
+
+
+                    <Grid item xs={12}className='form-group row'
+             sx={{display:'flex',
+                                justifyContent:'center',
+                                // alignItems:'center'
+                                marginRight:"199px"
+                            }}>
+
+                     <Grid className='col-sm-2  mt-2'>
+                      
+                      {
+                        status==="click"?<Button>
+                        <AddIcon className='mx-2' name="isyes" style={{color:"0c93fa",}}
+                         onClick={handlelerButton}
+    
+                         />
+                         </Button>
+                         :
+                         <Button>
+                        <RemoveIcon className='mx-2' name="isyes" style={{color:"0c93fa",}}
+                         onClick={handlelerButton}
+    
+                         />
+                         </Button>
+                      }
+                     <label className='col-sm-4 col-form-label'>Add EndDate(Optional)</label>
+
+                   
+                 </Grid>
+                  </Grid>
+                  
+                  { 
+                  visible ?
+                  
+                     <Grid item xs={12} sx={{display:'flex',
+                                justifyContent:'center',
+                                // alignItems:'center'
+                            }}>
+                                 
+                        <TextField InputLabelProps={{shrink: true,}}
+                        className='outlined-basic-text-box' id="outlined-basic1" 
+                        label="End Date" variant="outlined" style={textfield1} type='date'
+                                      value={initialEndDate}
+                          onChange={(e) => {setInitialEndDate(e.target.value)}} />  
+                                  
+            </Grid >:null
+                }
+
+               
                     <Grid item xs={12} sx={{display:'flex',
                     justifyContent:'center',
                     alignItems:'center'

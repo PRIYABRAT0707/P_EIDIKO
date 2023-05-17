@@ -52,22 +52,9 @@ let func1=props.onClose
                                         <CardContent>
 
 
-                                        <Box sx={{
-              display: 'flex',
-            alignContent: 'center',
-            justifyContent: 'center'
-        }}>                       
-                <ContactPhoneIcon sx={{
-                    fontSize: '50px',
-                    borderRadius: '50%',
-                    backgroundColor: '#2196F3',
-                    color: 'black',
-                    margin: '10px 100px',
-                    padding: '10px'
-                }} /> </Box>
 
                                             <center>
-                                                <Typography style={{fontSize:"25px"}} color="primary">Update Contact</Typography>
+                                                <Typography style={{fontSize:"25px"}} color="primary">UPDATE CONTACT</Typography>
                                                 <GlobalButton.GlobalDivider/>
                                             
                                              <form onSubmit={handleContact}>

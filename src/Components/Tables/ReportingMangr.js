@@ -31,6 +31,7 @@ import { ReportingManModal } from '../UpdateModals/ReportingManModal';
 
 
 export default function ReportingMangr() {
+  
    //modal for reporting manager updation
    const [profileData, setProfileData] = useState({});
    
@@ -75,14 +76,7 @@ const handleRow=(params)=>{
 }
 //--------------------------------------
 const columns = [
-  { 
-    field: 'id',
-   headerName: 'Id', 
-   width: 125,
-    flex:2,
-   headerClassName:'table-header'
  
-  },
   { 
     field: 'empId',
    headerName: 'Emp Id', 
@@ -148,17 +142,17 @@ const columns = [
    }
 
   },
-  { 
-    field: 'modifiedDate',
-   headerName: 'Modified Date', 
-   width: 295,
-    flex:2,
-   headerClassName:'table-header',
-   valueFormatter: params => 
-   moment(params?.value).format("DD/MM/YYYY"),
+  // { 
+  //   field: 'modifiedDate',
+  //  headerName: 'Modified Date', 
+  //  width: 295,
+  //   flex:2,
+  //  headerClassName:'table-header',
+  //  valueFormatter: params => 
+  //  moment(params?.value).format("DD/MM/YYYY"),
 
    
-  },
+  // },
   {
     field: 'edit',
     headerName: 'Edit',
@@ -250,8 +244,16 @@ const backbutton=useNavigate()
                   color:'white',
                  margin:'0px 0px',
                  padding:'0px'}}/> */}
-                  <center><Typography color={"secondary"} style={{marginLeft:"34px",fontSize:"26px"}}>Reporting Manager</Typography></center>
+                  <center><Typography color={"secondary"} style={{marginLeft:"34px",fontSize:"26px"}}>REPORTING MANAGER</Typography></center>
+              
+                       
                   <Grid style={{justifyContent:"center"}}>
+                  <Button variant='outlined' className='style' style={{marginBottom:"3px",marginTop:"4px",marginRight:"10px"}} 
+                startIcon={<Person4Icon></Person4Icon>} 
+                onClick={()=>{navigate(`/user/reporting-manager`,{state:tableData})}} >
+                            CREATE REPORTING MANAGER
+                </Button>
+                   
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"1px"}} 
                  onClick={()=>{backbutton("/user/profile")}}
                  startIcon={<ArrowBackIosNewIcon/>}>
@@ -263,14 +265,7 @@ const backbutton=useNavigate()
                  <Divider color='#2196F3' sx={{ margin: '4px 0px',height:"1px"}}  />
 
 
-                 <Grid style={{textAlign:"right"}}>
-                <Button variant='outlined' className='style' style={{marginBottom:"3px",marginTop:"4px"}} 
-                startIcon={<Person4Icon></Person4Icon>} 
-                onClick={()=>{navigate(`/user/reporting-manager`,{state:tableData})}} >
-                            CREATE REPORTING MANAGER
-                </Button>
-                </Grid>
-                  
+                 
                   <Box style={{height:"54.5vh",width:"auto"}}>
 
                   

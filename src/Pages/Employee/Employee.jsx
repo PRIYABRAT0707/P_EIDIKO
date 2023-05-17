@@ -527,15 +527,12 @@ const backbutton=useNavigate()
 
                         <center>
 
-                            <CommentIcon sx={{
-                                fontSize: '50px',
-                                borderRadius: '50%',
-                                backgroundColor: '#2196F3',
-                                color: 'white',
-                                margin: '0px 1px',
-                                padding: '10px'
-                            }} />
-                            <h2>Update Employee</h2>
+                           <Grid>
+            
+                 <Typography style={{fontSize:"25px",marginBottom:"10px"}} color="primary">
+                UPDATE REPORTING MANAGER
+                 </Typography>     
+            </Grid>
                             <GlobalButton.GlobalDivider/>
 
                             {/* <Divider color='#2196F3' sx={{ margin: '1px 0px',height:"1px"}}  /> */}

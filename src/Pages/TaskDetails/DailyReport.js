@@ -261,13 +261,16 @@ useEffect(()=>{
 
 
 
-               <Grid  item xs={12}className='form-group row' sx={{display:"flex",justifyContent:"center",marginBottom:"12px",marginTop:"12px"}}>
+               <Grid  item xs={12}className='form-group row' sx={{display:"flex",justifyContent:"center",
+               marginBottom:"12px",marginTop:"12px"}}>
                  <label className='col-sm-4 col-form-label'>Status: </label>
                  <Grid className='col-sm-2  mt-2' style={{marginLeft:"15px", color:"green"}}>
-                    Completed<input type="radio" className='mx-2' name="isyes" value="Yes" onClick={(e)=>{setVisible(false) ;setStatus(e.target.value)}} style={{accentColor:"green",marginLeft:"9px",marginRight:"25px"}}/>
+                    Completed<input type="radio" className='mx-2' name="isyes" value="Yes" 
+                    onClick={(e)=>{setVisible(false) ;setStatus(e.target.value)}} style={{accentColor:"green",marginLeft:"9px",marginRight:"25px"}}/>
                  </Grid>
                  <Grid className='col-sm-2  mt-2' style={{color:"red"}}>
-                    Not Completed<input type="radio" className='mx-2' name="isyes" value="No" onClick={(e)=>{setVisible(true);setStatus(e.target.value)}}  style={{accentColor:"red",marginLeft:"9px"}}/>
+                    Not Completed<input type="radio" className='mx-2' name="isyes" value="No"
+                     onClick={(e)=>{setVisible(true);setStatus(e.target.value)}}  style={{accentColor:"red",marginLeft:"9px"}}/>
                  </Grid>
                </Grid>
                {/* </Grid> */}
@@ -276,7 +279,9 @@ useEffect(()=>{
                  visible &&
                  
                <Grid item xs={12} sx={{justifyContent:"center",display:"flex"}}>
-               <TextField value={reason} onChange={(e)=>{setReason(e.target.value)}} label="Reason"multiline rows={2} required  placeholder="Enter The Reason" variant='outlined' fullWidth style={{width:"935px",marginTop:"15px"}}/>
+               <TextField value={reason} onChange={(e)=>{setReason(e.target.value)}} 
+               label="Reason"multiline rows={2} required  placeholder="Enter The Reason"
+                variant='outlined' fullWidth style={{width:"935px",marginTop:"15px"}}/>
                </Grid>
                  
                }

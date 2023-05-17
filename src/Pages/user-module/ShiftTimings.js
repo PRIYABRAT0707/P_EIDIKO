@@ -17,9 +17,29 @@ import {Divider} from '@mui/material';
 import ArrowBackIosNewIcon from '@mui/icons-material/ArrowBackIosNew';
 import { useNavigate } from 'react-router';
 import Loading from '../../Components/LoadingComponent/Loading';
+import AddIcon from '@mui/icons-material/Add';
+import dayjs from 'dayjs';
+import RemoveIcon from '@mui/icons-material/Remove';
 
 
 export default function ShiftTimings(){
+
+     //------EndDate
+  const[visible,setVisible]=useState(false);
+  const[status,setStatus]=useState("click")
+
+  const handlelerButton=(e)=>{
+if(status==="click"){
+ setVisible(true)
+  setStatus("")
+}
+else if(status!==1){
+setVisible(false)
+ setStatus("click")
+}
+  }
+  //------------
+
 const navigate=useNavigate()
     // const hour1=[0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23]
     const minute1=[0,15,30,45,60]
@@ -32,8 +52,8 @@ const navigate=useNavigate()
     const[endTime,setEndTime]=useState({"endHour":"","endMinute":""})
     const getime11=(e)=>{setStartTime({...startTime, [e.target.name]: e.target.value})}
     const getTime12=(e)=>{setEndTime({...endTime, [e.target.name]: e.target.value})}
-    const [startDate,setstartDate]=useState(new Date("2000-01-01"))
-    const [endDate,setEndDate]=useState(new Date("2000-01-01"))
+    const [startDate,setstartDate]=useState(dayjs().format("YYYY-MM-DD"))
+    const [endDate,setEndDate]=useState("")
     const [isLoading,setIsLoading]=useState(false)
 
     const [message,setMessage]=useState("")
@@ -146,7 +166,7 @@ return(
                 alignContent:"center",
                 marginRight:"1px"}}>
                 
-                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}>Shift Timing</Typography></center>
+                  <center><Typography  color={"secondary"} style={{fontSize:"26px",marginLeft:"34px"}}>SHIFT TIMIMNG</Typography></center>
                   <Grid style={{justifyContent:"center"}}>
                 <Button variant='outlined' style={{fontWeight:"bold",color:"#2196F3",marginBottom:"3px",marginTop:"4px",marginRight:"20px"}} 
                  onClick={()=>{backbutton("/user/employee-shift-timing-data")}}
@@ -262,21 +282,52 @@ return(
                                     />
 
      </Grid >
-     <Grid item xs={12} sx={{display:'flex',
-                        justifyContent:'center',
-                        alignItems:'center'
-                    }}>
-                            {/* <LocalizationProvider dateAdapter={AdapterDayjs}>
+     <Grid item xs={12}className='form-group row'
+             sx={{display:'flex',
+                                justifyContent:'center',
+                                // alignItems:'center'
+                                marginRight:"299px"
+                            }}>
 
-                                <DatePicker onChange={getData} label="End Date" defaultValue={dayjs('2023-01-01')} className='outlined-basic-text-box'  sx={{width:400}} />
-                            </LocalizationProvider> */}
+                     <Grid className='col-sm-2  mt-2'>
+                      
+                      {
+                        status==="click"?<Button>
+                        <AddIcon className='mx-2' name="isyes" style={{color:"0c93fa",}}
+                         onClick={handlelerButton}
+    
+                         />
+                         </Button>
+                         :
+                         <Button>
+                        <RemoveIcon className='mx-2' name="isyes" style={{color:"0c93fa",}}
+                         onClick={handlelerButton}
+    
+                         />
+                         </Button>
+                      }
+                     <label className='col-sm-4 col-form-label'>Add EndDate(Optional)</label>
 
-<TextField className='outlined-basic-text-box' id="outlined-basic1" label="End Date" variant="outlined" style={textfield1} type='date'
-                                        value={endDate}
-                                        onChange={(event) => {setEndDate(event.target.value)}}
-                                    />  
-
-     </Grid >
+                   
+                 </Grid>
+                  </Grid>
+                  
+                  { 
+                  visible ?
+                  
+                     <Grid item xs={12} sx={{display:'flex',
+                                justifyContent:'center',
+                                // alignItems:'center'
+                            }}>
+                                 
+                        <TextField InputLabelProps={{shrink: true,}}
+                        className='outlined-basic-text-box' id="outlined-basic1" 
+                        label="End Date" variant="outlined" style={textfield1} type='date'
+                                      value={endDate}
+                          onChange={(e) => {setEndDate(e.target.value)}} />  
+                                  
+            </Grid >:null
+                }
 
 
      <Grid item xs={12} sx={{display:'flex',justifyContent:'center',
